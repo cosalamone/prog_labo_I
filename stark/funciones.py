@@ -114,7 +114,6 @@ def crear_contadores_para_cada_key(lista:list, key):
 
     for elemento in lista:
         key_a_buscar = (elemento[key]).lower()
-        #key_a_buscar = key_a_buscar.lower()
         if key_a_buscar not in diccionario:
             diccionario[key_a_buscar] = 0  # agrego key color_ojos y la inicializo en 0  (valor)
 
@@ -138,8 +137,14 @@ def contador_de_coincidencias(lista, diccionario, key):
 #print(contador_de_coincidencias(lista_personajes, crear_contadores_para_cada_key(lista_personajes, 'color_pelo'), 'color_pelo'))
         
 
-# para color de pelo, no contemplar pelados ni sin especificar 
+def mostrar_cantidad_heroes_segun_caracteristica(lista:list, key:str):
+    diccionario_contador = crear_contadores_para_cada_key(lista, key)
+    diccionario = contador_de_coincidencias(lista, diccionario_contador, key)
 
+    print(diccionario)
+
+
+# para color de pelo, no contemplar pelados ni sin especificar 
 
 def mostrar_heroe_segun_caracteristica(lista:list, genero: str, key:str, operador:str):
     '''
@@ -190,14 +195,14 @@ def mostrar_heroe_mas_debil(lista:list, genero:str):
             for heroe_femenino in lista_heroes:
                 print(heroe_femenino['nombre'])
 
-def calcular_fuerza_promedio_sh_NB(lista:list):
+def calcular_fuerza_promedio_segun_genero(lista:list, genero):
     contador = 0
     acumulador = 0 
     
-    heroes_nb = agrupar_segun_genero(lista, 'NB')
+    heroes = agrupar_segun_genero(lista, genero)
 
-    heroes_nb = parsear_datos(heroes_nb)
-    for heroe in heroes_nb:        
+    heroes = parsear_datos(heroes)
+    for heroe in heroes:        
         contador += 1
         acumulador += heroe['fuerza']
 
@@ -206,7 +211,26 @@ def calcular_fuerza_promedio_sh_NB(lista:list):
         return promedio
 
 
-
 def imprimir_promedio(promedio):
     mensaje = f'El promedio es {promedio}'
     print(mensaje)
+
+def crear_diccionario_string_para_cada_key(lista:list,  key:str):
+    diccionario = {}
+
+    for elemento in lista:
+        key_a_buscar =elemento[key]
+        #key_a_buscar = (elemento[key]).lower()
+        if key_a_buscar not in diccionario:
+            diccionario[key_a_buscar] = ''  
+
+    return diccionario
+
+                                                                #color_pelo
+def mostrar_nombre_heroes_por_cada_característica(lista:list, key_caracteristica:str):
+    diccionario = crear_diccionario_string_para_cada_key(lista, key_caracteristica) # creao el diccionario y en lugar de contar, guardo los nombres
+    for heroe in lista:
+        for color in diccionario:
+            if color == heroe[key_caracteristica] and heroe[key_caracteristica] != '':
+                diccionario[color] += heroe['nombre']
+    print(diccionario)
