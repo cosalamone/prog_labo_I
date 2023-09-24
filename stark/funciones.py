@@ -1,25 +1,17 @@
-from data_stark import lista_personajes
+#from data_stark import lista_personajes
 
-def mostrar_menu():
-    opciones= f'''A- Mostrar todo los heroes de genero NB
-    B- Mostrar el superhéroe más alto de género F
-    C- Mostrar el superhéroe más alto de género M
-    D- Mostrar el superhéroe más débil de género M
-    E- Mostrar el superhéroe más débil de género NB
-    F- Mostrar la fuerza promedio de los superhéroes de género NB
-    G- Mostrar cuántos superhéroes tienen cada tipo de color de ojos.
-    H- Mostrar cuántos superhéroes tienen cada tipo de color de pelo.
-    I- Mostrar todos los superhéroes agrupados por color de ojos
-    J- Mostrar todos los superhéroes agrupados por tipo de inteligencia
-    '''
-    print(opciones)
-
-    respuesta = input('Ingrese la opcion deseada: ')
 
 def agrupar_segun_genero(lista:list, genero_por_buscar:str)-> list:
     '''
-    Crea una sublista, discriminada según genero. 
-    Es necesario ingresar por parametro la lista en la que se buscará y el genero de interes.
+Brief: Crea una lista discriminada según genero. 
+
+Parametros:
+- Lista(list): Lista sobre la cual buscará los generos indicados
+- Genero_por_buscar(str): Genero por el cual se quiere filtrar
+
+Retorno:
+Lista de heroes filtrada según el genero indicado
+    
     '''
     sh_genero = []
 
@@ -31,19 +23,19 @@ def agrupar_segun_genero(lista:list, genero_por_buscar:str)-> list:
     
     return sh_genero
 
-# print(mostrar_segun_genero(lista_personajes, 'F'))
 
 
 def mostrar_nombre_segun_genero(lista:list, genero_por_buscar:str):
     '''
-    Muestra el nombre de los heroes según su genero.
+    Brief:
+        Muestra el nombre de los heroes según su genero.
     
     Parametros:
     - Lista(list): Lista de diccionarios de los heroes
     - Genero(str): 'F', 'M', 'NB'
     
     Retorno:
-    Sin retorno. Imprime en consola los nombres de los heroes según su genero.
+        Sin retorno. Imprime en consola los nombres de los heroes según su genero.
     '''
     lista_segun_genero = agrupar_segun_genero(lista, genero_por_buscar)
     mensaje = f'Los superheroes {genero_por_buscar} son:'        
@@ -58,7 +50,14 @@ def mostrar_nombre_segun_genero(lista:list, genero_por_buscar:str):
 
 def parsear_datos(lista):
     '''
+Brief:
     Funcion para paresear los numeros enteros y flotantes de la lista
+
+Parametros:
+- Lista(lista)
+
+Retorno:
+    Lista con los datos numericos parseados a enteros o flotantes según corresponda
     '''
     for heroe in lista:
         heroe['fuerza'] = int(heroe['fuerza'])
@@ -69,8 +68,16 @@ def parsear_datos(lista):
 
 def encontrar_mayor_o_menor_caracteristica(lista:list, key: str, operador: str):
     '''
+Brief: 
     Encuentra el valor flotante más alto o mas bajo según una determinada característica.
-    Debe indicarse la lista sobre la cual trabajará, la característica en string y el operador: mayor o menor, tambien en string
+
+Parametros:
+- Lista(list): sobre la cual trabajará
+- Key(str): es la característica que se desea buscar, debe inticarse en string
+- Operador(str): mayor o menor, tambien en string
+
+Retorno:
+    Valor encontrado, ya sea el mayor o el menor según esa caracteristica
     '''
     lista = parsear_datos(lista)
     contador = None
@@ -88,10 +95,18 @@ def encontrar_mayor_o_menor_caracteristica(lista:list, key: str, operador: str):
         
     return(contador)
 
-#print(encontrar_mayor_o_menor_caracteristica(lista_personajes, 'altura', 'menor'))
 
 def agrupar_personajes_segun_mayor_o_menor_caracteristica(lista: list, contador, key)->list:
     '''
+Brief:
+    Agrupa los heroes con la mayor o menor caracteristica buscada. Ej: los heros con mayor altura
+Parametros:
+- Lista(list): sobre la cual trabajará
+- Contador(numero): valor que mayor o menor que tiene la caracteristica
+- Key(str): es la característica que se desea buscar
+
+Retorno:
+    Lista de heroes filtrada según el valor de la caracteristica buscada
     '''
     lista = parsear_datos(lista)
 
@@ -103,29 +118,40 @@ def agrupar_personajes_segun_mayor_o_menor_caracteristica(lista: list, contador,
             lista_agrupada.append(heroe)
     return lista_agrupada
 
-#print(agrupar_personajes_segun_mayor_o_menor_caracteristica(lista_personajes, encontrar_mayor_o_menor_caracteristica(lista_personajes, 'altura', 'menor'), 'altura' ))
 
 def crear_contadores_para_cada_key(lista:list, key):
     '''
-    Crea y retorna un diccionario, donde cada key se inicializa como un contador en 0.
-    Por parametro debe indicarse la lista sobre la cual se obtendrá la key.
-    '''
+Brief:
+    Crea un diccionario, donde cada key se inicializa como un contador en 0.
+
+Parametros:
+- Lista(list): sobre la cual trabajará
+- Key(str): es la característica que se desea buscar
+Retorno:
+    Devuelva un diccionario con cada caracteristica iniciada en 0, que funcionará como contador
+'''
     diccionario = {}
 
     for elemento in lista:
         key_a_buscar = (elemento[key]).lower()
         if key_a_buscar not in diccionario:
-            diccionario[key_a_buscar] = 0  # agrego key color_ojos y la inicializo en 0  (valor)
+            diccionario[key_a_buscar] = 0  
 
     return diccionario
 
 
-#print(crear_contadores_para_cada_key(lista_personajes, 'color_pelo'))
-
-
 def contador_de_coincidencias(lista, diccionario, key): 
     '''
-    En base  al diccionario recibido y a la key, recorre una lista para buscar coincidencias y sumar 1 en dicha key
+Brief:
+    Hace un conteo en el diccionario recibido según la cantidad de coincidencias que encuentre por cada hereo de la lista
+
+Parametros:
+- Lista(list): sobre la cual trabajará
+- Diccionario: Sobre el cual realizará el conteo
+- Key(str): es la característica que se desea buscar
+Retorno:
+    Devuelve un diccionario el cual tiene la cantidad correspondiente a cada característica buscada
+
     '''
 
     for elemento in lista:
@@ -134,28 +160,38 @@ def contador_de_coincidencias(lista, diccionario, key):
 
     return diccionario
 
-#print(contador_de_coincidencias(lista_personajes, crear_contadores_para_cada_key(lista_personajes, 'color_pelo'), 'color_pelo'))
         
 
 def mostrar_cantidad_heroes_segun_caracteristica(lista:list, key:str):
+    '''
+Brief:
+    Recorre una lista finalmente para mosterar la cantidad de heroes que hay según una determinada caracteristica
+
+Parametros:
+- Lista(list): sobre la cual trabajará
+- Key(str): es la característica que se desea buscar
+Retorno:
+    Devuelve un diccionario el cual tiene cada característica con su correspondiente cantidad
+    '''
     diccionario_contador = crear_contadores_para_cada_key(lista, key)
     diccionario = contador_de_coincidencias(lista, diccionario_contador, key)
 
     print(diccionario)
 
 
-# para color de pelo, no contemplar pelados ni sin especificar 
-
 def mostrar_heroe_segun_caracteristica(lista:list, genero: str, key:str, operador:str):
     '''
-    Muestra el nombre de los heroes de mayor altura según su genero.
+Brief:
+    Recorre una lista para mostrar el nombre de los heroes buscados según su genero y la característica deseada, ya sea en su valor más alto o mas bajo.
     
-    Parametros:
+Parametros:
     - Lista(list): Lista de diccionarios de los heroes
     - Genero(str): 'F', 'M', 'NB'
+    - Key(str): es la característica que se desea buscar
+    - Operador(str): mayor o menor, tambien en string
     
-    Retorno:
-    Sin retorno. Imprime en consola los nombres de los heroes más altos según su genero.
+Retorno:
+    Sin retorno. Imprime en consola los nombres de los heroes buscados.
     '''
     heroe_por_genero = agrupar_segun_genero(lista, genero)
     heroe_mas_alto = encontrar_mayor_o_menor_caracteristica(heroe_por_genero, key, operador)
@@ -176,26 +212,16 @@ def mostrar_heroe_segun_caracteristica(lista:list, genero: str, key:str, operado
                 print(heroe_femenino['nombre'])
 
 
-def mostrar_heroe_mas_debil(lista:list, genero:str):
-    heroe_por_genero = agrupar_segun_genero(lista, genero)
-    heroe_mas_alto = encontrar_mayor_o_menor_caracteristica(heroe_por_genero, 'fuerza', 'menor')
-    lista_heroes= agrupar_personajes_segun_mayor_o_menor_caracteristica(heroe_por_genero, heroe_mas_alto, 'altura')
-
-    if len(lista_heroes) == 1:
-        mensaje = f'''El superheroe {genero} de menor fuerza es:
-{lista_heroes[0]['nombre']}
-''' 
-        print(mensaje)
-
-    else:
-        if len(lista_heroes) > 1:
-            mensaje = f'Los superheroes {genero} de menor fuerza son:'        
-            print(mensaje)
-
-            for heroe_femenino in lista_heroes:
-                print(heroe_femenino['nombre'])
-
 def calcular_fuerza_promedio_segun_genero(lista:list, genero):
+    '''
+Brief:
+    Recorre una lista y calcula la fuerza promedio de un genero determinado
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Genero(str): 'F', 'M', 'NB'
+Retorno:
+    Devuelve el promedio buscado
+'''
     contador = 0
     acumulador = 0 
     
@@ -212,23 +238,48 @@ def calcular_fuerza_promedio_segun_genero(lista:list, genero):
 
 
 def imprimir_promedio(promedio):
+    '''
+Brief:
+    Imprime un mensaje con el valor del promedio recibido
+Parametros:
+    - Promedio(numero)
+Retorno:
+    No tiene.
+'''
     mensaje = f'El promedio es {promedio}'
     print(mensaje)
 
+
 def crear_diccionario_string_para_cada_key(lista:list,  key:str):
+    '''
+Brief:
+    Crea un diccionario, donde cada key(caracterítica) encontrada se inicializa en un string vacío (''), con el objetivo de luego poder ir agregando datos a esa característica.
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    Devuelve un diccionario con todas las características encontradas inicializadas en ''
+    '''
     diccionario = {}
 
     for elemento in lista:
         key_a_buscar =elemento[key]
-        #key_a_buscar = (elemento[key]).lower()
         if key_a_buscar not in diccionario:
             diccionario[key_a_buscar] = ''  
 
     return diccionario
 
-                                                                #color_pelo
 def mostrar_nombre_heroes_por_cada_característica(lista:list, key_caracteristica:str):
-    diccionario = crear_diccionario_string_para_cada_key(lista, key_caracteristica) # creao el diccionario y en lugar de contar, guardo los nombres
+    '''
+Brief:
+    Imprime un diccionario que contiene todos los heroes agrupados por una característica buscada
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    Devuelve un diccionario con todos los heroes agrupados por la key
+    '''
+    diccionario = crear_diccionario_string_para_cada_key(lista, key_caracteristica) 
     for heroe in lista:
         for color in diccionario:
             if color == heroe[key_caracteristica] and heroe[key_caracteristica] != '':

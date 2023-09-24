@@ -37,49 +37,63 @@ J. Listar todos los superhéroes agrupados por tipo de inteligencia
 NOTA: Se debe aplicar el tema Funciones visto en clase para cada opción del menú
 '''
 
-'''
-Antes de programar un fx hay que respondernos:
-* ¿Que hace?
-* ¿Que recibe? 
-* ¿Que retorna? 
-'''
 
 from data_stark import lista_personajes
 from funciones import *
 
-# A. Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género NB
+opciones= f'''Seleccione una de las siguientes opciones: 
+        A- Mostrar todo los heroes de genero NB
+        B- Mostrar el superhéroe más alto de género F
+        C- Mostrar el superhéroe más alto de género M
+        D- Mostrar el superhéroe más débil de género M
+        E- Mostrar el superhéroe más débil de género NB
+        F- Mostrar la fuerza promedio de los superhéroes de género NB
+        G- Mostrar cuántos superhéroes tienen cada tipo de color de ojos.
+        H- Mostrar cuántos superhéroes tienen cada tipo de color de pelo.
+        I- Mostrar todos los superhéroes agrupados por color de ojos
+        J- Mostrar todos los superhéroes agrupados por tipo de inteligencia \n
+        '''
 
-mostrar_nombre_segun_genero(lista_personajes, 'NB')
+def mostrar_menu():
+    while True:
 
-# B. Recorrer la lista y determinar cuál es el superhéroe más alto de género F
+        print(opciones)
 
-mostrar_heroe_segun_caracteristica(lista_personajes, 'F', 'altura', 'mayor')
+        respuesta = input('Ingrese la opcion deseada: ')
 
-# C. Recorrer la lista y determinar cuál es el superhéroe más alto de género M
+        match respuesta:
+            case 'A':
+                mostrar_nombre_segun_genero(lista_personajes, 'NB')
 
-mostrar_heroe_segun_caracteristica(lista_personajes, 'M', 'altura', 'mayor')
+            case 'B':
+                mostrar_heroe_segun_caracteristica(lista_personajes, 'F', 'altura', 'mayor')
 
-# D. Recorrer la lista y determinar cuál es el superhéroe más débil de género M
-mostrar_heroe_segun_caracteristica(lista_personajes, 'M', 'fuerza', 'menor')
+            case 'C':
+                mostrar_heroe_segun_caracteristica(lista_personajes, 'M', 'altura', 'mayor')
 
-# E. Recorrer la lista y determinar cuál es el superhéroe más débil de género NB
+            case 'D':
+                mostrar_heroe_segun_caracteristica(lista_personajes, 'M', 'fuerza', 'menor')
 
-mostrar_heroe_segun_caracteristica(lista_personajes, 'NB', 'fuerza', 'menor')
+            case 'E':
+                mostrar_heroe_segun_caracteristica(lista_personajes, 'NB', 'fuerza', 'menor')
 
-# F. Recorrer la lista y determinar la fuerza promedio de los superhéroes de género NB
-imprimir_promedio(calcular_fuerza_promedio_segun_genero(lista_personajes, 'NB'))
+            case 'F':
+                imprimir_promedio(calcular_fuerza_promedio_segun_genero(lista_personajes, 'NB'))
+
+            case 'G':
+                mostrar_cantidad_heroes_segun_caracteristica(lista_personajes,'color_ojos')
+
+            case 'H':
+                mostrar_cantidad_heroes_segun_caracteristica(lista_personajes, 'color_pelo')
+
+            case 'I':
+                mostrar_nombre_heroes_por_cada_característica(lista_personajes, 'color_ojos')
+
+            case 'J':
+                mostrar_nombre_heroes_por_cada_característica(lista_personajes, 'inteligencia')
+
+            case _:
+                break
 
 
-# G. Determinar cuántos superhéroes tienen cada tipo de color de ojos.
-mostrar_cantidad_heroes_segun_caracteristica(lista_personajes,'color_ojos')
-
-# H. Determinar cuántos superhéroes tienen cada tipo de color de pelo.
-mostrar_cantidad_heroes_segun_caracteristica(lista_personajes, 'color_pelo')
-
-# I. Listar todos los superhéroes agrupados por color de ojos.
-mostrar_nombre_heroes_por_cada_característica(lista_personajes, 'color_ojos')
-
-# J. Listar todos los superhéroes agrupados por tipo de inteligencia
-mostrar_nombre_heroes_por_cada_característica(lista_personajes, 'inteligencia')
-
-
+mostrar_menu()
