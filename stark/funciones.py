@@ -46,12 +46,12 @@ def mostrar_nombre_segun_genero(lista:list, genero_por_buscar:str):
     Sin retorno. Imprime en consola los nombres de los heroes según su genero.
     '''
     lista_segun_genero = agrupar_segun_genero(lista, genero_por_buscar)
+    mensaje = f'Los superheroes {genero_por_buscar} son:'        
+    print(mensaje)
 
     for heroe in lista_segun_genero:
         nombre = heroe['nombre']
 
-        mensaje = f'Los superheroes {genero_por_buscar} son:'        
-        print(mensaje)
         print(nombre)
 
 
@@ -141,7 +141,7 @@ def contador_de_coincidencias(lista, diccionario, key):
 # para color de pelo, no contemplar pelados ni sin especificar 
 
 
-def mostrar_heroe_mas_alto(lista:list, genero: str):
+def mostrar_heroe_segun_caracteristica(lista:list, genero: str, key:str, operador:str):
     '''
     Muestra el nombre de los heroes de mayor altura según su genero.
     
@@ -152,20 +152,61 @@ def mostrar_heroe_mas_alto(lista:list, genero: str):
     Retorno:
     Sin retorno. Imprime en consola los nombres de los heroes más altos según su genero.
     '''
-    heroe_femenino = agrupar_segun_genero(lista, genero)
-    heroe_mas_alto = encontrar_mayor_o_menor_caracteristica(heroe_femenino, 'altura', 'mayor')
-    lista_heroes= agrupar_personajes_segun_mayor_o_menor_caracteristica(heroe_femenino, heroe_mas_alto, 'altura')
+    heroe_por_genero = agrupar_segun_genero(lista, genero)
+    heroe_mas_alto = encontrar_mayor_o_menor_caracteristica(heroe_por_genero, key, operador)
+    lista_heroes= agrupar_personajes_segun_mayor_o_menor_caracteristica(heroe_por_genero, heroe_mas_alto, key)
 
     if len(lista_heroes) == 1:
-        mensaje = f'''El superheroe {genero} de mayor altura es:
+        mensaje = f'''El superheroe {genero} de {operador} {key} es:
 {lista_heroes[0]['nombre']}
 ''' 
         print(mensaje)
 
     else:
         if len(lista_heroes) > 1:
-            mensaje = f'Los superheroes {genero} de mayor altura son:'        
+            mensaje = f'Los superheroes {genero} de {operador} {key} son:'        
             print(mensaje)
 
             for heroe_femenino in lista_heroes:
                 print(heroe_femenino['nombre'])
+
+
+def mostrar_heroe_mas_debil(lista:list, genero:str):
+    heroe_por_genero = agrupar_segun_genero(lista, genero)
+    heroe_mas_alto = encontrar_mayor_o_menor_caracteristica(heroe_por_genero, 'fuerza', 'menor')
+    lista_heroes= agrupar_personajes_segun_mayor_o_menor_caracteristica(heroe_por_genero, heroe_mas_alto, 'altura')
+
+    if len(lista_heroes) == 1:
+        mensaje = f'''El superheroe {genero} de menor fuerza es:
+{lista_heroes[0]['nombre']}
+''' 
+        print(mensaje)
+
+    else:
+        if len(lista_heroes) > 1:
+            mensaje = f'Los superheroes {genero} de menor fuerza son:'        
+            print(mensaje)
+
+            for heroe_femenino in lista_heroes:
+                print(heroe_femenino['nombre'])
+
+def calcular_fuerza_promedio_sh_NB(lista:list):
+    contador = 0
+    acumulador = 0 
+    
+    heroes_nb = agrupar_segun_genero(lista, 'NB')
+
+    heroes_nb = parsear_datos(heroes_nb)
+    for heroe in heroes_nb:        
+        contador += 1
+        acumulador += heroe['fuerza']
+
+    if contador != 0:
+        promedio = acumulador/contador
+        return promedio
+
+
+
+def imprimir_promedio(promedio):
+    mensaje = f'El promedio es {promedio}'
+    print(mensaje)

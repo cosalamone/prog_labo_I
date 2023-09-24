@@ -53,95 +53,23 @@ mostrar_nombre_segun_genero(lista_personajes, 'NB')
 
 # B. Recorrer la lista y determinar cuál es el superhéroe más alto de género F
 
-mostrar_heroe_mas_alto(lista_personajes, 'F')
+mostrar_heroe_segun_caracteristica(lista_personajes, 'F', 'altura', 'mayor')
 
 # C. Recorrer la lista y determinar cuál es el superhéroe más alto de género M
 
-mostrar_heroe_mas_alto(lista_personajes, 'M')
-
-
+mostrar_heroe_segun_caracteristica(lista_personajes, 'M', 'altura', 'mayor')
 
 # D. Recorrer la lista y determinar cuál es el superhéroe más débil de género M
-def mostrar_sh_M_mas_debil(lista:list):
-    sh_M = []
-    menor_fuerza = None 
-    sh_M_mas_debil  = ""
-    
-    for i in lista:
-        nombre = i['nombre']
-        genero = i['genero']
-
-        if genero == 'M':
-            sh_M.append(i)
-    for i in sh_M:
-        nombre = i['nombre']
-        fuerza = int(i['fuerza'])
-        genero = i['genero']
-
-        if menor_fuerza == None or fuerza < menor_fuerza:
-            menor_fuerza = fuerza
-
-    for i in sh_M:
-        nombre = i['nombre']
-        fuerza = int(i['fuerza'])
-        genero = i['genero']
-        if fuerza == menor_fuerza:
-            sh_M_mas_debil += nombre
-
-    return sh_M_mas_debil
-
-# print(mostrar_sh_M_mas_debil(lista_personajes))
+mostrar_heroe_segun_caracteristica(lista_personajes, 'M', 'fuerza', 'menor')
 
 # E. Recorrer la lista y determinar cuál es el superhéroe más débil de género NB
 
-def mostrar_sh_NB_más_debil(lista:list):
-    sh_NB = []
-    menor_fuerza = None 
-    sh_NB_mas_debil  = ""
-    
-    for i in lista:
-        nombre = i['nombre']
-        genero = i['genero']
-
-        if genero == 'NB':
-            sh_NB.append(i)
-    for i in sh_NB:
-        nombre = i['nombre']
-        fuerza = int(i['fuerza'])
-        genero = i['genero']
-
-        if menor_fuerza == None or fuerza < menor_fuerza:
-            menor_fuerza = fuerza
-    for i in sh_NB:
-        nombre = i['nombre']
-        fuerza = int(i['fuerza'])
-        genero = i['genero']
-        if fuerza == menor_fuerza:
-            sh_NB_mas_debil += nombre
-
-    return sh_NB_mas_debil
-
-# print(mostrar_sh_NB_más_debil(lista_personajes))
+mostrar_heroe_segun_caracteristica(lista_personajes, 'NB', 'fuerza', 'menor')
 
 # F. Recorrer la lista y determinar la fuerza promedio de los superhéroes de género NB
-def mostrar_fuerza_promedio_sh_NB(lista:list):
-    contador = 0
-    acumulador = 0 
+promedio = calcular_fuerza_promedio_sh_NB(lista_personajes)
+imprimir_promedio(promedio)
 
-    for i in lista:
-        genero = i['genero']
-        fuerza = int(i['fuerza'])
-
-        if genero == 'NB':
-            contador += 1
-            acumulador += fuerza
-
-    if contador != 0:
-        promedio = acumulador/contador
-
-    return promedio
-
-# print(mostrar_fuerza_promedio_sh_NB(lista_personajes))
 
 # G. Determinar cuántos superhéroes tienen cada tipo de color de ojos.
 
