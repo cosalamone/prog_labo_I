@@ -41,78 +41,25 @@ NOTA: Se debe aplicar el tema Funciones visto en clase para cada opción del men
 Antes de programar un fx hay que respondernos:
 * ¿Que hace?
 * ¿Que recibe? 
-* ¿Que retorna? '''
+* ¿Que retorna? 
+'''
 
 from data_stark import lista_personajes
 from funciones import *
+
 # A. Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género NB
+
 mostrar_nombre_segun_genero(lista_personajes, 'NB')
 
 # B. Recorrer la lista y determinar cuál es el superhéroe más alto de género F
-mostrar_nombre_segun_genero
-def mostrar_sh_F_mas_alto(lista:list):
-    sh_F = []
-    sh_F_mas_alto = ""
-    altura_maxima = 0
 
-    for i in lista:
-        nombre = i['nombre']
-        genero = i['genero']
-
-        if genero == 'F':
-            sh_F.append(i)
-    # print(sh_F)
-    
-    for i in sh_F:
-        nombre = i['nombre']
-        altura = float(i['altura'])
-        genero = i['genero']
-
-        if altura > altura_maxima:
-            altura_maxima = altura
-        
-    for i in sh_F:
-        nombre = i['nombre']
-        altura = float(i['altura'])
-        genero = i['genero']
-        if altura == altura_maxima:
-            sh_F_mas_alto += nombre
-
-    return sh_F_mas_alto
-
-# print(mostrar_sh_F_mas_alto(lista_personajes))
+mostrar_heroe_mas_alto(lista_personajes, 'F')
 
 # C. Recorrer la lista y determinar cuál es el superhéroe más alto de género M
 
-def mostrar_sh_M_mas_alto(lista:list):
-    sh_M = []
-    altura_maxima = 0 
-    sh_M_mas_alto  = ""
-    
-    for i in lista:
-        nombre = i['nombre']
-        genero = i['genero']
+mostrar_heroe_mas_alto(lista_personajes, 'M')
 
-        if genero == 'M':
-            sh_M.append(i)
-    for i in sh_M:
-        nombre = i['nombre']
-        altura = float(i['altura'])
-        genero = i['genero']
 
-        if altura > altura_maxima:
-            altura_maxima = altura
-
-    for i in sh_M:
-        nombre = i['nombre']
-        altura = float(i['altura'])
-        genero = i['genero']
-        if altura == altura_maxima:
-            sh_M_mas_alto += nombre
-
-    return sh_M_mas_alto
-
-# print(mostrar_sh_M_mas_alto(lista_personajes))
 
 # D. Recorrer la lista y determinar cuál es el superhéroe más débil de género M
 def mostrar_sh_M_mas_debil(lista:list):

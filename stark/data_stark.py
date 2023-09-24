@@ -161,7 +161,7 @@ lista_personajes =\
     "nombre": "Daredevil",
     "identidad": "Matt Murdock",
     "empresa": "Marvel Comics",
-    "altura": "183.68000000000001",
+    "altura": "701.12",
     "peso": "90.450000000000003",
     "genero": "M",
     "color_ojos": "Blue",
