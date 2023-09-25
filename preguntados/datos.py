@@ -1,5 +1,9 @@
 lista=[
-{'pregunta': '¿Cuál es la moneda de México?', 'a': 'Peso', 'b': 'Dolar', 'c':'Euro' ,'correcta': 'a'}, 
+{'pregunta': '¿Cuál es la moneda de México?', 
+'a': 'Peso', 
+'b': 'Dolar', 
+'c':'Euro' ,
+'correcta': 'a'}, 
 {'pregunta': '¿De qué colores es la bandera de Japón?', 'a': 'Azul y Amarilla','b': 'Blanca y roja', 'c':'Celeste y Blanca' ,'correcta': 'b'}, 
 {'pregunta': '¿Cuántos elementos forman la Tabla Periódica?', 'a': '118', 'b': '123', 'c':'125' ,'correcta': 'a'},
 {'pregunta': '¿Quién pintó la Mona Lisa?', 'a': 'Dali', 'b': 'Miguel Angel', 'c':'Leonardo da Vinci' ,'correcta': 'c'},
