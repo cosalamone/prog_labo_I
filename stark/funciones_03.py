@@ -1,4 +1,5 @@
 from data_stark import lista_personajes
+from funciones import *
 
 
 def stark_normalizar_datos(lista):
@@ -28,18 +29,21 @@ Retorno:
             flag = True
 
     return flag
-# print('Lista', lista_personajes, '\n')
 
-# print('Lista normalizada ', stark_normalizar_datos(lista_personajes))
-
-'''
-1.1 Crear la función ”obtener_dato()” la cual recibirá por parámetro un diccionario el cual representara a un héroe y también recibirá un string que hace referencia a una “clave” del mismo
-Validar siempre que el diccionario no esté vacío y que el mismo tenga una key llamada “nombre”.
-Caso contrario la función retornara un False
-
-'''
 
 def obtener_dato(heroe:dict, key:str):
+    '''
+Brief:
+    Obtener de un diccionario, el valor de la key buscada
+
+Parametros:
+- Lista(lista)
+- key(str)
+
+
+Retorno:
+    El valor de key buscada o False en caso de no encontrarse la key en el diccionario
+    '''
     for clave in heroe:
         if clave == key:
             dato = heroe[clave]
@@ -48,56 +52,66 @@ def obtener_dato(heroe:dict, key:str):
             dato = False
     return dato
 
-#print (obtener_dato(lista_personajes[0], 'nombre'))
 
-'''
-1.2 Crear la función 'obtener_nombre' la cual recibirá por parámetro un diccionario el cual representara a un héroe y devolverá un string el cual contenga su nombre formateado de la siguiente manera:
-Nombre: Howard the Duck
-Validar siempre que el diccionario no este vacío y verificar 'nombre' . Caso contrario la función retornara un False
-NOTA: Reutilizar la función creada en el punto anterior
-'''
 
 def obtener_nombre(heroe:dict)-> str:
+    '''
+Brief:
+    Obtener el nombre del heroe dentro del diccionario.
+
+Parametros:
+- Lista(lista)
+
+Retorno:
+    El valor de key 'nombre' o False en caso de no encontrarse la key en el diccionario
+'''
     for clave in heroe:
         if clave == 'nombre':
             respuesta = f'Nombre: {heroe[clave]}'
+            break
+        else:
+            respuesta = False
     return respuesta
 
-# print(obtener_nombre(lista_personajes[0]))
 
 
-'''
-2. Crear la función 'obtener_nombre_y_dato' la misma recibirá por parámetro un diccionario el cual representara a un héroe y una key (string) la cual representará el dato que se desea obtener.
 
-
-La función deberá devolver un string el cual contenga el nombre y dato (key) del héroe a imprimir. El dato puede ser 'altura', 'fuerza', 'peso' O CUALQUIER OTRO DATO.
-
-
-El string resultante debe estar formateado de la siguiente manera: (suponiendo que la key es fuerza)
-Nombre: Venom | fuerza: 500
-Validar siempre que la lista no este vacía. Caso contrario la función retornara un False
-NOTA: Reutilizar las funciones del punto anterior
-'''
 # verifiqué que el dato bucado exista
 def obtener_nombre_dato(heroe: dict, key:str)-> str:
+    '''
+Brief:
+    Obtener la key buscada dentro del diccionario.
+
+Parametros:
+- Lista(lista)
+- key(str)
+
+Retorno:
+    Un string: Nombre: {nombre} | {key}: 500.El valor de key 'nombre' o False en caso de no encontrarse el dato
+'''
 
     nombre = obtener_nombre(heroe)
     dato = obtener_dato(heroe, key)
     
     if dato != False:
         dato = f'{nombre} | {key}: {dato}'
-
+    
     return dato
 
-# print(obtener_nombre_dato(lista_personajes[0], 'fuerza'))
 
-'''
-3.1 Crear la función “obtener_maximo()” la cual recibirá como parámetro una lista y una key (string) la cual representará el dato al cual se le debe calcular su cantidad MÁXIMA.
-Validar siempre que la lista no esté vacía y que el dato que está buscando sea un int o un float. Caso contrario la función retornara un False
-En caso de que el dato que se está buscando en el diccionario es de tipo int o float retornar el mayor que haya encontrado en la búsqueda.
 
-'''
 def obtener_maximo(lista: list, key:str): 
+    '''
+Brief:
+    Obtener el valor maximo key buscada dentro del diccionario. Verifica que el valor deseado sea de tipo int o float
+
+Parametros:
+- Lista(lista)
+- key(str)
+
+Retorno:
+    El valor maximo de la key buscada o False en caso de no encontrarse el dato
+'''
     stark_normalizar_datos(lista)
     maximo = lista[0][key]
     for hereo in lista:
@@ -109,15 +123,22 @@ def obtener_maximo(lista: list, key:str):
 
     return maximo
 
-# print(obtener_maximo(lista_personajes, 'nombre'))
 
-'''
-3.2 Crear la función “obtener_minimo()” la cual recibirá como parámetro una lista y una key (string) la cual representará el dato al cual se le debe calcular su cantidad MÍNIMA.
-Validar siempre que la lista no esté vacía y que el dato que está buscando sea un int o un float. Caso contrario la función retornara un False
-En caso de que el dato que se está buscando en el diccionario es de tipo int o float retornar el menor que haya encontrado en la búsqueda.
-'''
+
 
 def obtener_minimo(lista:list, key: str):
+    '''
+Brief:
+    Obtener el valor minimo de la key buscada dentro del diccionario. 
+    Verifica que el valor deseado sea de tipo int o float
+
+Parametros:
+- Lista(lista)
+- key(str)
+
+Retorno:
+    El valor minimo de la key buscada o False en caso de no encontrarse el dato
+'''
     stark_normalizar_datos(lista)
     minimo = lista[0][key]
     for hereo in lista:
@@ -129,21 +150,22 @@ def obtener_minimo(lista:list, key: str):
 
     return minimo
 
-# print(obtener_minimo(lista_personajes, 'altura'))
 
-'''
 
-3.3 Crear la función 'obtener_dato_cantidad()' la cual recibira tres parámetros:
--La lista de héroes
--Un número que me indique el valor a buscar (puede ser la altura máxima, la altura mínima o cualquier otro dato)
--Un string que representa la key del dato a calcular, por ejemplo: ‘altura’, ‘peso’, ‘edad’, etc.
-La función deberá retornar una lista con el héroe o los heroes que cumplan  con la condición pedida. Reutilizar las funciones hechas en los puntos 3.1 y 3.2
-Ejemplo de llamada:
-mayor_altura = obtener_maximo(lista_heroes,”altura”)
-lista_heroes_max_altura = 'obtener_dato_cantidad(lista_heroes,mayor_altura,”altura”)
-El objetivo de estás llamadas es obtener todos los superhéroes que tengan la altura correspondiente a la altura máxima, y la misma función me podria servir tanto como para altura menor, como la mayor o alguna altura que yo le especifique también.
-'''
 def obtener_dato_cantidad(lista: list, numero,  key:str):
+    '''
+Brief:
+    Obtener un nuevo listado de heroes que cumpla con el valor maximo/minimo en la key buscada.
+    Verifica que el valor deseado sea de tipo int o float
+
+Parametros:
+- Lista(lista)
+- numero(float/int): representa el valor maximo o minimo a buscar
+- key(str)
+
+Retorno:
+    Todos los heroes que coincidan con el valor maximo/minimo en la key buscada
+'''
     stark_normalizar_datos(lista) 
     lista_dato_según_cantidad = []
     for heroe in lista:
@@ -151,34 +173,64 @@ def obtener_dato_cantidad(lista: list, numero,  key:str):
             lista_dato_según_cantidad.append(heroe)
     return lista_dato_según_cantidad
 
-# print(obtener_dato_cantidad(lista_personajes, obtener_minimo(lista_personajes, 'fuerza'),  'fuerza'))
 
-'''
-3.4 Crear la función 'stark_imprimir_heroes'  la cual recibirá un parametro:
 
-La lista de héroes
-
-Validar que la lista de héroes no esté vacía para realizar sus acciones, caso contrario no hará nada y retornara False
-En caso de que la lista no este vacia imprimir la información completa de todos los heroes de la lista que se le pase
-Ejemplo de llamada:
-mas_pesado = obtener_maximo(lista_heroes,”peso”)
-lista_mas_pesados = 'obtener_dato_cantidad(lista_heroes,mas_pesado ,”peso”)
-stark_imprimir_heroes(lista_mas_pesados) -> Imprimo sólo los héroes más pesados
-stark_imprimir_heroes(lista_heroes) -> Imprimo todos los héroes
-'''
 def stark_imprimir_heroes(lista:list):
+    '''
+Brief:
+    Imprime un listado de heroes
+
+Parametros:
+- Lista(lista)
+
+Retorno:
+    Todos los heroes que coincidan con el valor maximo/minimo en la key buscada
+'''
     flag = False
-    for hereo in lista:
+    mensaje = ''
+    for heroe in lista:
         flag = True
-        print(hereo)
+        nombre= heroe['nombre']
+        identidad= heroe['identidad']
+        empresa= heroe['empresa']
+        altura= heroe['altura']
+        peso= heroe['peso']
+        genero= heroe['genero']
+        color_ojos= heroe['color_ojos']
+        color_pelo= heroe['color_pelo']
+        fuerza= heroe['fuerza']
+        inteligencia= heroe['inteligencia']
+
+        mensaje += f'''Nombre: {nombre}
+Identidad: {identidad} 
+Empresa: {empresa}
+Altura: {altura}
+Peso: {peso}
+Genero: {genero}
+Color de ojos: {color_ojos}
+Color de pelo: {color_pelo}
+nFuerza: {fuerza} 
+Inteligencia {inteligencia}
+-----------------------------
+'''
+    print(mensaje)
     if flag == False:
         return flag
 
-# stark_imprimir_heroes(obtener_dato_cantidad(lista_personajes, obtener_minimo(lista_personajes, 'fuerza'),  'fuerza'))
-'''
-4.1 Crear la función 'sumar_dato_heroe' la cual recibirá como parámetro una lista de héroes y un string que representara el dato/key de los héroes que se requiere sumar. Validar que cada héroe sea tipo diccionario y que no sea un diccionario vacío antes de hacer la suma. La función deberá retorna la suma de todos los datos según la key pasada por parámetro
-'''
+
+
 def sumar_dato_heroe(lista: list, key: str,): 
+    '''
+Brief:
+    Recorre una lista y suma los valores de la key indicada
+
+Parametros:
+- Lista(lista)
+- Key
+
+Retorno:
+    El valor de la suma
+'''
     stark_normalizar_datos(lista)
     suma = 0
     for heroe in lista: 
@@ -186,25 +238,41 @@ def sumar_dato_heroe(lista: list, key: str,):
             suma += heroe[key]
     return suma
 
-print(sumar_dato_heroe(lista_personajes, 'peso'))
 
-'''
-4.2 Crear la función  ‘dividir’ la cual recibirá como parámetro dos números (dividendo y divisor). Se debe verificar si el divisor es 0,  en caso de serlo, retornar False, caso contrario realizar la división entre los parámetros y retornar el resultado
-'''
+
+
 def dividir(dividiendo, divisor):
+    '''
+Brief:
+    Divide los 2 numeros indicados como parametros
+
+Parametros:
+- Divisor
+- Dividendo
+
+Retorno:
+    El valor de la division
+'''
     if divisor == 0:
         respuesta = False
     else:
         respuesta = dividiendo/divisor
     return respuesta
 
-# print(dividir(10,0))
-'''
-4.3 Crear la función ‘calcular_promedio’ la cual recibirá como parámetro una lista de héroes y un string que representa el dato del héroe que se requiere calcular el promedio. La función debe retornar el promedio del dato pasado por parámetro
 
-IMPORTANTE: hacer uso de las las funciones creadas en los puntos 4.1 y 4.2
-'''
+
 def calcular_promedio(lista:list, key: str):
+    '''
+Brief:
+    Calcula el promedio de los valores de la key indicada por parametro
+
+Parametros:
+- Lista(list)
+- Key(str)
+
+Retorno:
+    El valor del promedio
+'''
     stark_normalizar_datos(lista)
     acumulador = sumar_dato_heroe(lista, key)
     contador = len(lista)
@@ -212,17 +280,21 @@ def calcular_promedio(lista:list, key: str):
     respuesta = dividir(acumulador,contador)
     return respuesta
 
-# print(calcular_promedio(lista_personajes, 'fuerza'))
 
 
-
-'''
-4.4 Crear la función ‘mostrar_promedio_dato’ la cual recibirá como parámetro una lista de héroes y un string que representa la clave del dato
-Se debe validar que el dato que se encuentra en esa clave sea de tipo int o float. Caso contrario retornaria False
-Se debe validar que la lista a manipular no esté vacía , en caso de que esté vacía se retornaria también False
-'''
 
 def mostrar_promedio_dato(lista: list, key:str): 
+    '''
+Brief:
+    Imrpime el valor del promedio  de los valores de la key indicada por parametro.
+
+Parametros:
+- Lista(list)
+- Key(str)
+
+Retorno:
+    El valor del promedio. En caso que la key no sea de tipo int o float devuelve False. En caso que la lista esté vacía tambien retorna False
+'''
     stark_normalizar_datos(lista)
     flag = False
     respuesta_promedio = calcular_promedio(lista, key)
@@ -235,12 +307,18 @@ def mostrar_promedio_dato(lista: list, key:str):
         return flag
         
 
-# mostrar_promedio_dato(lista_personajes, 'altura')
 
-
-'''5.1 Crear la función "imprimir_menu" que imprima el menú de opciones por pantalla, el cual permite utilizar toda la funcionalidad ya programada.
-'''
 def imprimir_menu(): 
+    '''
+Brief:
+    Imrpime las opciones de menu
+
+Parametros:
+No recibe
+
+Retorno:
+    El mensaje con las opciones de menu
+'''
     mensaje = '''
 1- Normalizar datos (No se debe poder acceder a los otros puntos)
 2- Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género NB
@@ -253,43 +331,66 @@ def imprimir_menu():
 9- Determinar cuántos superhéroes tienen cada tipo de color de pelo.
 10- Listar todos los superhéroes agrupados por color de ojos.
 11- Listar todos los superhéroes agrupados por tipo de inteligencia
+12- Salir
 
 '''
     print(mensaje)
 
-# imprimir_menu()
-'''
-5.2 Crear la función “validar_entero” la cual recibirá por parámetro un string de número el cual deberá verificar que sea sea un string conformado únicamente por dígitos. Retornara True en caso de serlo, False caso contrario
-'''
+
+
 def validar_enteros(string: str):
+    '''
+Brief:
+    Recibe por parametro un string y verifica que sólo esté confirmado por digitos
+
+Parametros:
+- string(str)
+
+Retorno:
+    Retornara True en caso de ser sólo digitos y False caso contrario
+'''
     if string.isdigit():
         valido = True
     else:
         valido = False
     return valido
 
-# print(validar_enteros('123'))
 
-'''
-5.3 Crear la función 'stark_menu_principal' la cual se encargará de imprimir el menú de opciones y le pedirá al usuario que ingrese el número de una de las opciones elegidas y deberá validarlo. En caso de ser correcto dicho número, lo retornara casteado a int , caso contrario retorna False. Reutilizar las funciones del ejercicio 5.1 y 5.2
-'''
+
 def stark_menu_principal(): 
+    '''
+Brief:
+    Imrpime las opciones de menu, solicita al usuario una opcion y verifica que sea un string de numeros. 
+
+Parametros:
+- string(str)
+
+Retorno:
+    Si el numero ingresado es una de la opciones validas devuelve el número, sino retorna False
+'''
     imprimir_menu()
     opcion = input('Ingrese una de las opciones: ')
     validacion = validar_enteros(opcion)
     if validacion == True:
         opcion = int(opcion)
-        if opcion < 1 or  opcion > 11:
+        if opcion < 1 or  opcion > 12:
             opcion = False
     return opcion 
 
-# print(stark_menu_principal())
 
 
-'''6.Crear la función 'stark_marvel_app' la cual recibirá por parámetro la lista de héroes y se encargará de la ejecución principal de nuestro programa.
-Utilizar if/elif o match según prefiera. Debe informar por consola en caso de seleccionar una opción incorrecta y volver a pedir el dato al usuario. Reutilizar las funciones con prefijo 'stark_' donde crea correspondiente.
-'''
+
+
 def menu_obtener_nombre_nb(lista:list, key:str):
+    '''
+Brief:
+    Obtiene los nombres de los heroes de genero NB
+Parametros:
+- Lista(list): Lista de diccionarios de los heroes
+- Key(str): es la característica que se desea buscar
+Retorno:
+    Lista de heroes NB
+    '''
     stark_normalizar_datos(lista_personajes)
     mensaje = ""
     for heroe in lista:
@@ -298,10 +399,18 @@ def menu_obtener_nombre_nb(lista:list, key:str):
             mensaje += f"{nombre}  \n"
 
     return mensaje
-# print(menu_obtener_nombre_nb(lista_personajes, 'genero'))
+
 
 def menu_por_genero_mas_alto(lista, keyGenero: str, keyAltura: str, gen):
-
+    '''
+Brief:
+    Según el genero de parametro indicado, devuelve una lista del mas alto
+Parametros:
+- Lista(list): Lista de diccionarios de los heroes
+- Key(str): es la característica que se desea buscar
+Retorno:
+    Lista de heroes
+    '''
     lista_filtrada = []
     for heroe in lista:
         if heroe[keyGenero] == gen:
@@ -313,6 +422,15 @@ def menu_por_genero_mas_alto(lista, keyGenero: str, keyAltura: str, gen):
         print(f['nombre'])
 
 def menu_por_genero_min_fuerza(lista, keyGenero: str, keyAltura: str, gen):
+    '''
+Brief:
+    Imprime el promedio de una característica buscada en un genero en particular
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    no retorna
+    '''
     lista_filtrada = []
     for heroe in lista:
         if heroe[keyGenero] == gen:
@@ -324,52 +442,111 @@ def menu_por_genero_min_fuerza(lista, keyGenero: str, keyAltura: str, gen):
         print(f['nombre'])
 
 def menu_promedio_por_genero(lista, keyGenero: str, keyfuerza: str, gen):
+    '''
+Brief:
+    Imprime el promedio de una característica buscada en un genero en particular
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    no retorna
+    '''
     lista_filtrada = []
     for heroe in lista:
         if heroe[keyGenero] == gen:
             lista_filtrada.append(heroe)
     
     mostrar_promedio_dato(lista_filtrada, keyfuerza)
+
+def menu_mostrar_cantidad_por_caracteristica(lista:list, key:str):
+    '''
+Brief:
+    Imprime la cantidad de heroes que coinciden con la característica buscada
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    No retorna
+    '''
+    for heroe in lista:
+        obtener_dato(heroe, key)
+        dicrionario_keys = crear_contadores_para_cada_key(lista, key)
+        cantidad_coincidencias = contador_de_coincidencias(lista, dicrionario_keys, key )
+    print(cantidad_coincidencias)
+
+# menu_mostrar_cantidad_por_caracteristica(lista_personajes, 'color_ojos')
+
+def  obligatorio_normalizar(lista): 
+    '''
+Brief:
+    Solicita que el usuario normalice los datos ingresando opcion 1
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    Retorna True en caso que se hayan normalizado
+    '''
+    
+    opcion = input('Para ingresar al menú es necesario normalizar los datos, por favor ingrese 1:  ')
+    while opcion != '1':
+        opcion = input('La opcion a ingresar debe ser 1  ')
+    stark_normalizar_datos(lista)
+    return True
+
+def stark_normalizar(normalizado):
+    '''
+Brief:
+    Confirma si los datos fueron o no normalizados
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    Imrpime mensaje según si los datos fueron o no normalizados
+    '''
+    if normalizado == True:
+        print('Datos Normalizados')
+    else:
+        print('Hubo un error al normalizar los datos. Verifique que la lista no este vacía o que los datos ya no se hayan normalizado anteriormente')
     
 def stark_marvel_app(lista:list):
-    opcion = stark_menu_principal()
-    match opcion:
-        case 1:
-            stark_normalizar_datos(lista)
-        case 2:
-            print(menu_obtener_nombre_nb(lista, 'genero'))
-        case 3:
-            menu_por_genero_mas_alto(lista,'genero','altura', 'F' )
-        case 4:
-            menu_por_genero_mas_alto(lista,'genero','altura', 'M')
-        case 5:
-            menu_por_genero_min_fuerza(lista,'genero','fuerza', 'M')
-        case 6:
-            menu_por_genero_min_fuerza(lista,'genero','fuerza', 'NB')
-        case 7:
-            menu_promedio_por_genero(lista,'genero','fuerza', 'NB')
-        case 8:
-            pass
-        case 9:
-            pass
-        case 10:
-            pass
-        case 11:
-            pass
+    flag = True
+    #flag_dos = False
+    sanitizado = obligatorio_normalizar(lista)
+
+    while flag:
+
+        if sanitizado == True:
+            
+            respuesta = stark_menu_principal()
+
+            match respuesta:
+                case 1:
+                    stark_normalizar(stark_normalizar_datos(lista))
+                case 2:
+                    print(menu_obtener_nombre_nb(lista, 'genero'))
+                case 3:
+                    menu_por_genero_mas_alto(lista,'genero','altura', 'F' )
+                case 4:
+                    menu_por_genero_mas_alto(lista,'genero','altura', 'M')
+                case 5:
+                    menu_por_genero_min_fuerza(lista,'genero','fuerza', 'M')
+                case 6:
+                    menu_por_genero_min_fuerza(lista,'genero','fuerza', 'NB')
+                case 7:
+                    menu_promedio_por_genero(lista,'genero','fuerza', 'NB')
+                case 8:
+                    menu_mostrar_cantidad_por_caracteristica(lista, 'color_ojos')
+                case 9:
+                    menu_mostrar_cantidad_por_caracteristica(lista, 'color_pelo')
+                case 10:
+                    mostrar_nombre_heroes_por_cada_característica(lista,'color_ojos')
+                case 11:
+                    mostrar_nombre_heroes_por_cada_característica(lista,'inteligencia')
+                case 12:
+                    flag = False
+                
 
 stark_marvel_app(lista_personajes)
 
-'''7. Una vez realizadas y probadas las funciones resolver en un menú los siguientes puntos del desafio anterior.
-A Normalizar datos (No se debe poder acceder a los otros puntos)
-B Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género NB
-C Recorrer la lista y determinar cuál es el superhéroe más alto de género F
-D Recorrer la lista y determinar cuál es el superhéroe más alto de género M
-E Recorrer la lista y determinar cuál es el superhéroe más débil de género M
-F Recorrer la lista y determinar cuál es el superhéroe más débil de género NB
-G Recorrer la lista y determinar la fuerza promedio de los  superhéroes de género NB
-H Determinar cuántos superhéroes tienen cada tipo de color de ojos.
-I Determinar cuántos superhéroes tienen cada tipo de color de pelo.
-J Listar todos los superhéroes agrupados por color de ojos.
-K Listar todos los superhéroes agrupados por tipo de inteligencia
-'''
+
 
