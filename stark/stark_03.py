@@ -1,74 +1,31 @@
 '''
-Desafio Stark
-Industrias Stark es principalmente una empresa de defensa que desarrolla y fabrica
-armas avanzadas y tecnologías militares.
-
-Recientemente ha decidido ampliar su departamento de IT y para acceder a las
-entrevistas es necesario completar el siguiente desafío, el cual estará dividido en
-etapas. Cada semana recibiremos un nuevo pedido de parte de la empresa.
-
-La empresa compartió con todos los participantes cierta información confidencial
-de un grupo de superhéroes. Y semana a semana enviará una lista con los nuevos
-requerimientos. Quien supere todas las etapas accedera a una entrevista con el
-director para de la compañía.
-Set de datos
-La información a ser analizada se encuentra en el archivo data_stark.py, por tratarse
-de una lista, bastará con incluir dicho archivo en el proyecto de la siguiente manera:
-
-from data_stark import lista_personajes
-Formato de los datos recibidos
-lista_heroes = [
-{
-&quot;nombre&quot;: &quot;Howard the Duck&quot;,
-
-&quot;identidad&quot;: &quot;Howard (Last name unrevealed)&quot;,
-&quot;empresa&quot;: &quot;Marvel Comics&quot;,
-&quot;altura&quot;: &quot;79.349999999999994&quot;,
-&quot;peso&quot;: &quot;18.449999999999999&quot;,
-&quot;genero&quot;: &quot;M&quot;,
-&quot;color_ojos&quot;: &quot;Brown&quot;,
-&quot;color_pelo&quot;: &quot;Yellow&quot;,
-&quot;fuerza&quot;: &quot;2&quot;,
-&quot;inteligencia&quot;: &quot;average&quot;
-},
-{
-&quot;nombre&quot;: &quot;Rocket Raccoon&quot;,
-&quot;identidad&quot;: &quot;Rocket Raccoon&quot;,
-&quot;empresa&quot;: &quot;Marvel Comics&quot;,
-&quot;altura&quot;: &quot;122.77&quot;,
-&quot;peso&quot;: &quot;25.73&quot;,
-&quot;genero&quot;: &quot;M&quot;,
-&quot;color_ojos&quot;: &quot;Brown&quot;,
-&quot;color_pelo&quot;: &quot;Brown&quot;,
-&quot;fuerza&quot;: &quot;5&quot;,
-&quot;inteligencia&quot;: &quot;average&quot;
-}
-]
-
 Desafío #03: (con biblioteca propia: stark_biblioteca)
+
 En base a lo resuelto en la parte 1, deberían crearse las siguientes funciones
+
 IMPORTANTE: Para todas y cada una de las funciones creadas, documentarlas
 escribiendo que es lo que hacen, que son los parámetros que reciben (si es una lista,
 un string, etc y que contendrá) y que es lo que retorna la función!
-. Crear la función 'stark_normalizar_datos()' la cual recibirá por parámetro la
+
+- Crear la función 'stark_normalizar_datos()' la cual recibirá por parámetro la
 lista de héroes. La función deberá:
-● Recorrer la lista y convertir al tipo de dato correcto las keys (solo con
-las keys que representan datos numéricos) por ejemplo fuerza (int),
-altura (float), etc
-● Validar primero que el tipo de dato no sea del tipo al cual será
-casteado. Por ejemplo si una key debería ser entero (ejemplo fuerza)
-verificar antes que no se encuentre ya en ese tipo de dato.
-● Si al menos un dato fue modificado, la función deberá retornar el valor
-booleano True
-● En caso de que la lista esté vacía o ya se hayan normalizado
-anteriormente los datos se deberá retornar el valor booleano False
-● Crear una opción en el menú que me permita normalizar los datos (No
-se debería poder acceder a ninguna otra opción del menú hasta que
-los datos esten normalizados)
-● En caso de que la llamada a la función retorne True mostrar un
-mensaje diciendo “Datos Normalizados” sino mostrar el mensaje
-“Hubo un error al normalizar los datos. Verifique que la lista no este
-vacía o que los datos ya no se hayan normalizado anteriormente”
+    ● Recorrer la lista y convertir al tipo de dato correcto las keys (solo con
+    las keys que representan datos numéricos) por ejemplo fuerza (int),
+    altura (float), etc
+    ● Validar primero que el tipo de dato no sea del tipo al cual será
+    casteado. Por ejemplo si una key debería ser entero (ejemplo fuerza)
+    verificar antes que no se encuentre ya en ese tipo de dato.
+    ● Si al menos un dato fue modificado, la función deberá retornar el valor
+    booleano True
+    ● En caso de que la lista esté vacía o ya se hayan normalizado
+    anteriormente los datos se deberá retornar el valor booleano False
+    ● Crear una opción en el menú que me permita normalizar los datos (No
+    se debería poder acceder a ninguna otra opción del menú hasta que
+    los datos esten normalizados)
+    ● En caso de que la llamada a la función retorne True mostrar un
+    mensaje diciendo “Datos Normalizados” sino mostrar el mensaje
+    “Hubo un error al normalizar los datos. Verifique que la lista no este
+    vacía o que los datos ya no se hayan normalizado anteriormente”
 
 1.1. Crear la función ”obtener_dato()” la cual recibirá por parámetro un
 diccionario el cual representara a un héroe y también recibirá un string que
@@ -118,8 +75,8 @@ float retornar el menor que haya encontrado en la búsqueda.
 ● La lista de héroes
 ● Un número que me indique el valor a buscar (puede ser la altura
 máxima, la altura mínima o cualquier otro dato)
-● Un string que representa la key del dato a calcular, por ejemplo: ‘altura’,
-‘peso’, ‘edad’, etc.
+● Un string que representa la key del dato a calcular, por ejemplo: 'altura',
+'peso', 'edad', etc.
 La función deberá retornar una lista con el héroe o los heroes que cumplan
 con la condición pedida. Reutilizar las funciones hechas en los puntos 3.1 y
 3.2
@@ -152,16 +109,16 @@ Validar que cada héroe sea tipo diccionario y que no sea un diccionario vacío 
 de hacer la suma. La función deberá retorna la suma de todos los datos según la key
 pasada por parámetro
 
-4.2 Crear la función ‘dividir’ la cual recibirá como parámetro dos números
+4.2 Crear la función 'dividir' la cual recibirá como parámetro dos números
 (dividendo y divisor). Se debe verificar si el divisor es 0, en caso de serlo, retornar
 False, caso contrario realizar la división entre los parámetros y retornar el resultado
 
-4.3 Crear la función ‘calcular_promedio’ la cual recibirá como parámetro una lista de
+4.3 Crear la función 'calcular_promedio' la cual recibirá como parámetro una lista de
 héroes y un string que representa el dato del héroe que se requiere calcular el
 promedio. La función debe retornar el promedio del dato pasado por parámetro
 IMPORTANTE: hacer uso de las las funciones creadas en los puntos 4.1 y 4.2
 
-4.4 Crear la función ‘mostrar_promedio_dato’ la cual recibirá como parámetro una
+4.4 Crear la función 'mostrar_promedio_dato' la cual recibirá como parámetro una
 lista de héroes y un string que representa la clave del dato
 ● Se debe validar que el dato que se encuentra en esa clave sea de tipo int o
 float. Caso contrario retornaria False
@@ -201,3 +158,6 @@ H. Determinar cuántos superhéroes tienen cada tipo de color de ojos.
 I. Determinar cuántos superhéroes tienen cada tipo de color de pelo.
 J. Listar todos los superhéroes agrupados por color de ojos.
 K. Listar todos los superhéroes agrupados por tipo de inteligencia'''
+
+from data_stark import lista_personajes
+from funciones_03 import *
