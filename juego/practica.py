@@ -18,15 +18,22 @@ timer_segundo = pygame.USEREVENT
 pygame.time.set_timer(timer_segundo, 100)
 
 
+
+
 # LEER IMAGEN
-imagen_fondo = pygame.image.load('juego/fondo_espacial_con_plantas.jpg')
-imagen_plantas = pygame.image.load('juego/plantas.jpg')
-imagen_plantas =  pygame.transform.scale(imagen_plantas, (70,50))
+imagen_groot = pygame.image.load('juego/groot_sin_fondo_2.png')
+imagen_planta_uno = pygame.image.load('juego/planta_uno.png')
+groot_rect = imagen_groot.get_rect()
+rect_planta_uno = imagen_planta_uno.get_rect()
+groot_rect.x = 100
+groot_rect.y = 100
+rect_planta_uno.x = 350
+rect_planta_uno.y = 350
 
 
 # CREAR TEXTO
 fuente = pygame.font.SysFont('Arial', 30)
-texto = fuente.render('Hola homero', True, COLOR_GRIS)
+texto = fuente.render('Hola Groot', True, COLOR_GRIS)
 
 while flag_running:
     #detectar que el usuario cierra la ventana
@@ -63,8 +70,13 @@ while flag_running:
     ventana_ppal.fill(COLOR_GRIS_CLARO)
     pygame.draw.rect(ventana_ppal, COLOR_NEGRO, (30,60,100,200))
     pygame.draw.circle(ventana_ppal, COLOR_AMARILLO, pos_circulo, 80)
-    ventana_ppal.blit(imagen_plantas, (50,50,100,100))
-    ventana_ppal.blit(texto, (300,300))
+
+
+    pygame.draw.rect(ventana_ppal, COLOR_CELESTE, groot_rect)
+    ventana_ppal.blit(imagen_groot, groot_rect)
+
+    pygame.draw.rect(ventana_ppal, COLOR_CELESTE, rect_planta_uno)
+    ventana_ppal.blit(imagen_planta_uno, rect_planta_uno)
 
 
     pygame.display.flip() # Se las muestra al usuario
