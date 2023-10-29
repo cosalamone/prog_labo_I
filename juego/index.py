@@ -39,9 +39,9 @@ while flag_running:
                 planta.update(lista_plantas)
                     # llamo a fx que recorre donas y las hace caer
 
-        if evento.type == pygame.MOUSEBUTTONDOWN:
-                    print(evento.pos) #posicion del mousedown en forma de tupla x,y
-                    pos_circulo = list(evento.pos)
+        # if evento.type == pygame.MOUSEBUTTONDOWN:
+        #             print(evento.pos) #posicion del mousedown en forma de tupla x,y
+        #             pos_circulo = list(evento.pos)
 
         # if evento.type == pygame.USEREVENT:
         #     if evento.type == timer_500_milesimas:
@@ -55,14 +55,16 @@ while flag_running:
     # lista que devuelve todas las teclas presionadas
     lista_teclas = pygame.key.get_pressed()
     if lista_teclas[pygame.K_LEFT]:
-        pos_circulo[1] = pos_circulo[1] + 1
+        personaje.update(groot,-5)
+    if lista_teclas[pygame.K_RIGHT]:
+        personaje.update(groot,5)
 
 
     ventana_ppal.fill(COLOR_NEGRO)
     ventana_ppal.blit(imagen_fondo_uno,(0,0)) #fundimos/pegamos la imagen en la suf de la pantalla
 
     personaje.actualizar_pantalla(groot, ventana_ppal)
-    planta.actualizar_pantalla(lista_plantas, ventana_ppal)
+    planta.actualizar_pantalla(lista_plantas, groot, ventana_ppal)
 
 
     pygame.display.flip() # Se las muestra al usuario
