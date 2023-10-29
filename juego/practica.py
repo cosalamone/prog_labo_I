@@ -1,4 +1,5 @@
 import pygame
+from planta import *
 from constantes import *
 pygame.init()
 
@@ -21,14 +22,16 @@ pygame.time.set_timer(timer_segundo, 100)
 
 
 # LEER IMAGEN
-imagen_groot = pygame.image.load('juego/groot_sin_fondo_2.png')
-imagen_planta_uno = pygame.image.load('juego/planta_uno.png')
+imagen_groot = pygame.image.load('juego/assets/groot_sin_fondo_2.png')
+# imagen_planta_uno = pygame.image.load('juego/assets/planta_uno.png')
 groot_rect = imagen_groot.get_rect()
-rect_planta_uno = imagen_planta_uno.get_rect()
+# rect_planta_uno = imagen_planta_uno.get_rect()
 groot_rect.x = 100
 groot_rect.y = 100
-rect_planta_uno.x = 350
-rect_planta_uno.y = 350
+# rect_planta_uno.x = 350
+# rect_planta_uno.y = 350
+
+lista_plantas = crear_lista_plantas(10)
 
 
 # CREAR TEXTO
@@ -48,7 +51,7 @@ while flag_running:
             print(evento.pos) #posicion del mousedown en forma de tupla x,y
             pos_circulo = list(evento.pos)
 
-        
+
         if evento.type == pygame.USEREVENT:
             if evento.type == timer_segundo:
                 if (pos_circulo[0] < ANCHO_VENTANA + 80):
@@ -68,15 +71,15 @@ while flag_running:
 
 
     ventana_ppal.fill(COLOR_GRIS_CLARO)
-    pygame.draw.rect(ventana_ppal, COLOR_NEGRO, (30,60,100,200))
+    # pygame.draw.rect(ventana_ppal, COLOR_NEGRO, (30,60,100,200))
     pygame.draw.circle(ventana_ppal, COLOR_AMARILLO, pos_circulo, 80)
 
 
     pygame.draw.rect(ventana_ppal, COLOR_CELESTE, groot_rect)
     ventana_ppal.blit(imagen_groot, groot_rect)
 
-    pygame.draw.rect(ventana_ppal, COLOR_CELESTE, rect_planta_uno)
-    ventana_ppal.blit(imagen_planta_uno, rect_planta_uno)
+
+    actualizar_pantalla(lista_plantas, ventana_ppal)
 
 
     pygame.display.flip() # Se las muestra al usuario
