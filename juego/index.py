@@ -21,7 +21,7 @@ imagen_fondo_uno = pygame.image.load('juego/assets/fondo_uno.jpg')
 imagen_fondo_uno = pygame.transform.scale(imagen_fondo_uno, (ANCHO_VENTANA, ALTO_VENTANA))
 
 groot = personaje.crear('juego/assets/groot_sin_fondo_2.png',100,550,100, 157)
-lista_plantas = planta.crear_lista_plantas(10)
+lista_plantas = planta.crear_lista_plantas(50)
 
 
 flag_running = True
@@ -37,7 +37,7 @@ while flag_running:
         if evento.type == pygame.USEREVENT:
             if evento.type == timer_milesimas:
                 planta.update(lista_plantas)
-                    # llamo a fx que recorre donas y las hace caer
+                    # llamo a fx que recorre plantas y las hace caer
 
         # if evento.type == pygame.MOUSEBUTTONDOWN:
         #             print(evento.pos) #posicion del mousedown en forma de tupla x,y
