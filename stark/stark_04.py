@@ -39,7 +39,7 @@ nombre_1 = 'the stark  - start'
 # print(extraer_iniciales(nombre_1))
 
 
-#1.2 
+#1.2
 def obtener_dato_formato(dato:str):
     '''
 Brief:
@@ -47,13 +47,13 @@ Brief:
     Valida que el dato recibido sea en str. De no serlo u ocurrir un error retorna Falso
 
 Parametros:
-    
+
 
 Retorno:
     El dato en formato snake_case y en minuscula
     Falso en caso de ocurrir algun error
     '''
-    
+
     if type(dato) != str:
         respuesta = False
     else:
@@ -64,7 +64,7 @@ Retorno:
 
         respuesta = dato
 
-    return respuesta 
+    return respuesta
 
 dato1 = 'Spider-Man a 2'
 # print(obtener_dato_formato(dato1))
@@ -95,7 +95,7 @@ Retorno:
     Imprime el nombre en le formato indicado
 
     '''
-    
+
     if type(heroe) != dict:
         boleano = False
     else:
@@ -108,7 +108,7 @@ Retorno:
 
                 respuesta = f'* {nombre_en_snake} ({iniciales})'
                 boleano = True
-                print(respuesta) 
+                print(respuesta)
 
                 break
             else:
@@ -130,14 +130,14 @@ heroe_prueba = {
 # stark_imprimir_nombre_con_iniciales(dic)
 
 # 1.4
-def stark_imprimir_nombres_con_iniciales(lista_heroes: list): 
+def stark_imprimir_nombres_con_iniciales(lista_heroes: list):
     '''
 Brief:
-    
+
 Parametros:
     lista_heroe: lista
 Retorno:
-    
+
     '''
 
     if type(lista_heroes) == list and len(lista_heroes) > 0:
@@ -156,12 +156,12 @@ Retorno:
 def generar_codigo_heroe(heroe: dict, id: int):
     '''
 Brief:
-    
+
 Parametros:
     diccionario de un héroe
     id (int)
 Retorno:
-    
+
     '''
     respuesta = ''
     cadena_numero = str(id)
@@ -197,7 +197,7 @@ Retorno:
 
                 str_ceros = ''.join(map(str, lista_ceros))
 
-            
+
 
                 respuesta = f'{codigo}{str_ceros}{id}'
             case 'NB':
@@ -212,36 +212,146 @@ Retorno:
 
                 str_ceros = ''.join(map(str, lista_ceros))
 
-            
+
 
                 respuesta = f'{codigo}{str_ceros}{id}'
     else:
         respuesta = 'N/A'
     return respuesta
-        
+
 
 # print(generar_codigo_heroe(heroe_prueba, 150))
 
 #2.2
-def stark_generar_codigos_heroes(lista_heroes: list): 
-    id = 0
-    for heroe in lista_heroes: 
-        id += 1 
-
-        codigo = generar_codigo_heroe(heroe, id)
-
-        iniciales = extraer_iniciales(heroe)
-        nombre_en_snake = obtener_dato_formato(heroe)
-
-        respuesta = f'{nombre_en_snake} {iniciales} | {codigo}'  
-
-
-
-'''
+def stark_generar_codigos_heroes(lista_heroes: list):
+    '''
 Brief:
-    
+
 Parametros:
     heroe: diccionario
 Retorno:
-    
+
+'''
+    if len(lista_heroes) > 0:
+
+        id = 0
+        respuesta = ''
+        for heroe in lista_heroes:
+            if type(heroe) == dict:
+                id += 1
+
+                codigo = generar_codigo_heroe(heroe, id)
+                iniciales = extraer_iniciales(heroe['nombre'])
+                nombre_en_snake = obtener_dato_formato(heroe['nombre'])
+
+                respuesta += f'* {nombre_en_snake} {iniciales} | {codigo} \n'
+
+            else:
+                respuesta = False
+    else:
+        respuesta = False
+
+    if respuesta != False:
+        respuesta += f'''...........
+Se asignaron  {id} códigos
+        '''
+    return respuesta
+
+
+# lista_personajes = [
+#     {
+#     "nombre": "Howard the Duck",
+#     "identidad": "Howard (Last name unrevealed)",
+#     "empresa": "Marvel Comics",
+#     "altura": "79.349999999999994",
+#     "peso": "18.449999999999999",
+#     "genero": "M",
+#     "color_ojos": "Brown",
+#     "color_pelo": "Yellow",
+#     "fuerza": "2",
+#     "inteligencia": ""
+# },
+# {
+#     "nombre": "Rocket Raccoon",
+#     "identidad": "Rocket Raccoon!",
+#     "empresa": "Marvel Comics",
+#     "altura": "122.77",
+#     "peso": "25.73",
+#     "genero": "NB",
+#     "color_ojos": "Brown",
+#     "color_pelo": "Brown",
+#     "fuerza": "5",
+#     "inteligencia": "average"
+# },
+#     [1,2,3]
+# ]
+# print(stark_generar_codigos_heroes(lista_personajes))
+
+
+# 3.1
+
+def sanitizar_entero(numero_str:str):
+    numero_str = numero_str.strip()
+    numero_str_aux = numero_str
+    respuesta = None
+    try:
+        if numero_str[0] == '-':
+            numero_str_aux = numero_str[1:]
+
+        if not numero_str_aux.isdigit():
+            respuesta = -1
+
+        if respuesta == None:
+            if int(numero_str) >= 0:
+                respuesta = int(numero_str)
+            else:
+                respuesta = -2
+
+    except:
+        respuesta = -3
+
+    return respuesta
+
+
+
+# print(sanitizar_entero('37o56s-4857sg6'))
+# print(sanitizar_entero('-0293847239847'))
+# print(sanitizar_entero('  '))
+# print(sanitizar_entero(' 02358 '))
+
+# 3.2
+
+def sanitizar_flotante(numero_str:str):
+    numero_str = numero_str.strip()
+    numero_str_aux = numero_str
+    respuesta = None
+    try:
+        if numero_str[0] == '-':
+            numero_str_aux = numero_str[1:]
+
+        if not numero_str_aux.isdigit():
+            respuesta = -1
+
+        if respuesta == None:
+            if float(numero_str) >= 0:
+                respuesta = float(numero_str)
+            else:
+                respuesta = -2
+
+    except:
+        respuesta = -3
+
+    return respuesta
+
+print(sanitizar_flotante('37o56s-4857sg6'))
+print(sanitizar_flotante('-029,3847239847'))
+print(sanitizar_flotante('  '))
+print(sanitizar_flotante(' 02,358 '))
+'''
+Brief:
+
+Parametros:
+    heroe: diccionario
+Retorno:
+
 '''

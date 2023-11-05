@@ -14,7 +14,8 @@ def crear(img_path: str, x:int ,y:int, ancho, alto):
 
 def actualizar_pantalla(personaje, ventana_ppal):
     ventana_ppal.blit(personaje['surface'], personaje['rect_posicion'])
-    # pygame.draw.rect(ventana_ppal, COLOR_CELESTE, personaje['rect_colision'])
+    
+    pygame.draw.rect(ventana_ppal, COLOR_CELESTE, personaje['rect_colision'])
 
 def update(personaje, incremento_x):
     nueva_posicion = personaje['rect_posicion'].x + incremento_x
