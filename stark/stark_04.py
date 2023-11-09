@@ -291,8 +291,8 @@ Se asignaron  {id} códigos
 # 3.1
 
 def sanitizar_entero(numero_str:str):
-    numero_str = numero_str.strip()
-    numero_str_aux = numero_str
+    numero_str = numero_str.strip() # ' 123 '
+    numero_str_aux = numero_str  # '-123'
     respuesta = None
     try:
         if numero_str[0] == '-':
@@ -321,32 +321,165 @@ def sanitizar_entero(numero_str:str):
 
 # 3.2
 
-def sanitizar_flotante(numero_str:str):
+def sanitizar_flotante(numero_str:str): # '37o56s-4857sg6'
     numero_str = numero_str.strip()
     numero_str_aux = numero_str
     respuesta = None
+    contador_puntos = 0 
     try:
-        if numero_str[0] == '-':
-            numero_str_aux = numero_str[1:]
+        if (numero_str[0]) == '-': # verifico si inicia con un -. if True, no guardo el - en numero_str_aux 
+            numero_str_aux = numero_str[1:] # 
 
-        if not numero_str_aux.isdigit():
-            respuesta = -1
-
-        if respuesta == None:
+        for caracter in numero_str_aux:
+            if caracter == '.':
+                contador_puntos += 1
+        
+        if contador_puntos == 1: # si contiene un . lo paso a flotante 
             if float(numero_str) >= 0:
-                respuesta = float(numero_str)
+                respuesta = float(numero_str) # si es positivo, 
             else:
-                respuesta = -2
+                respuesta = -2 # y si es negativo devuelvo -2
+        else: 
+            contiene_caracteres_no_numerocos = re.search('[a-zA-Z]', numero_str_aux)
+            if contiene_caracteres_no_numerocos != None:
+                respuesta = -1
 
-    except:
+    except: #agarra cualquier tipo de error y devuelve -3
         respuesta = -3
 
     return respuesta
 
-print(sanitizar_flotante('37o56s-4857sg6'))
-print(sanitizar_flotante('-029,3847239847'))
-print(sanitizar_flotante('  '))
-print(sanitizar_flotante(' 02,358 '))
+# print(sanitizar_flotante('37o56s4857sg6')) # -1
+# print(sanitizar_flotante('-29.3333')) # -2
+# print(sanitizar_flotante('  ')) # -3
+# print(sanitizar_flotante(' 2.358 ')) # el numero 
+
+
+# 3.3                     
+def sanitizar_string(valor_str: str, valor_por_defecto = '-'):
+    valor_str = valor_str.strip()
+    valor_str = re.sub('/', ' ', valor_str)
+
+    valor_con_numero = re.search('[0-9]', valor_str)
+        
+    if valor_con_numero != None:
+        respuesta = 'N/A'
+    else:
+        valor_lista = re.findall('[a-zA-Z ]', valor_str)
+        valor_str = ''.join(map(str, valor_lista))
+        respuesta = valor_str.lower()
+
+    if valor_str == '':
+        respuesta = valor_por_defecto.lower()
+
+    return respuesta
+
+
+# print(sanitizar_string('', 'HOLA' ))
+
+# 3.4
+
+'''
+Crear la función ‘sanitizar_dato’ la cual recibirá como parámetros:
+● heroe: un diccionario con los datos del personaje
+● clave: un string que representa el dato a sanitizar (la clave del
+diccionario). Por ejemplo altura
+● tipo_dato: un string que representa el tipo de dato a sanitizar. Puede
+tomar los valores: ‘string’, ‘entero’ y ‘flotante’
+La función deberá sanitizar el valor del diccionario correspondiente a la clave
+y al tipo de dato recibido
+Para sanitizar los valores se deberán utilizar las funciones creadas en los
+puntos 3.1, 3.2, 3.3 y 3.4
+
+Se deberá validar:
+● Que tipo_dato se encuentre entre los valores esperados (‘string, ‘entero,
+‘flotante)’ la validación debe soportar que nos lleguen mayúsculas o
+minúsculas. En caso de encontrarse un valor no válido informar por
+pantalla: ‘Tipo de dato no reconocido’
+
+● Que clave exista como clave dentro del diccionario heroe. En caso de
+no encontrarse, informar por pantalla: ‘La clave especificada no
+existe en el héroe’. (en este caso la validación es sensible a
+mayúsculas o minúsculas)
+Ejemplo de llamada a la función válida:
+sanitizar_dato(dict_personaje, “altura”, “Flotante”)
+La función deberá devolver True en caso de haber sanitizado algún dato y
+False en caso contrario.
+'''
+
+def sanitizar_dato(heroe: dict, clave:str, tipo_dato: str):
+    tipo_dato = tipo_dato.lower() 
+    respuesta = True
+
+    if clave in heroe:
+        if tipo_dato == 'string':
+            sanitizar_string(heroe[clave])
+
+        elif tipo_dato == 'flotante':
+            sanitizar_flotante(heroe[clave])
+
+        elif tipo_dato == 'entero':
+            sanitizar_entero(heroe[clave])
+
+        else: 
+            print('Tipo de dato no reconocido')
+            respuesta = False
+    else:
+        print('La clave especificada no existe en el héroe')
+        respuesta = False
+
+    return respuesta
+
+
+# print(sanitizar_dato(lista_personajes[0], 'altura', 'flotante'))
+
+# 3.5
+def stark_normalizar_datos(lista_heroes: list):
+    if len(lista_heroes) > 0:
+        for heroe in lista_heroes:
+            sanitizar_dato(heroe, 'altura', 'flotante')
+            sanitizar_dato(heroe, 'peso', 'flotante')
+            sanitizar_dato(heroe, 'color_ojos', 'string')
+            sanitizar_dato(heroe, 'color_pelo', 'string')
+            sanitizar_dato(heroe, 'fuerza', 'entero')
+            sanitizar_dato(heroe, 'inteligencia', 'string')
+        print('Datos normalizados')
+    else:
+        print('Error: Lista de héroes vacía')
+
+# stark_normalizar_datos(lista_personajes)
+
+# 4.1
+
+def stark_imprimir_indice_nombre(lista_heroes):
+    indice_nombres = ''
+    for heroe in lista_heroes:
+        nombre:str = heroe['nombre']
+        nombre_sin_the = re.sub('the ', '', nombre)
+        nombre_reemplazado = nombre_sin_the.replace(' ', '-')
+        indice_nombres += f'{nombre_reemplazado}-'
+    return indice_nombres
+
+# print(stark_imprimir_indice_nombre(lista_personajes))
+
+
+# 5.1
+
+def generar_separador(patron:str, largo:int, imprimir=True):
+    separador = ''
+    if (len(patron) >= 1 and len(patron) <= 2) and (largo >= 1 and largo <= 235):
+        
+        for i in range(largo):
+            separador += patron
+
+        if imprimir == True:
+            print(separador)
+        
+    else:
+        separador = 'N/A'
+    return separador
+
+generar_separador('*',7,)
 '''
 Brief:
 
