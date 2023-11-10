@@ -396,14 +396,15 @@ Retorno:
 
 
 # 4.1
-def stark_imprimir_indice_nombre(lista_heroes):
+def stark_imprimir_indice_nombre(lista_heroes:list):
     '''
 Brief:
-
+    Imprime cada una de las palabras de cada uno de los nombres, separadas por un guion. Ignorando las palabras que digan “the”
+Ej: Howard-duck-Rocket-Raccoon-Wolverine…
 Parametros:
-    heroe: diccionario
+    lista_heroes:list
 Retorno:
-
+    No tiene retorno
 '''
     indice_nombres = ''
     for heroe in lista_heroes:
@@ -419,6 +420,16 @@ Retorno:
 # 5.1
 
 def generar_separador(patron:str, largo:int, imprimir=True):
+    '''
+Brief:
+    Genera e imprime un string con el patrón especificado repetido según la cantidad de veces indicado en el largo. 
+Parametros:
+    patron:str
+    largo:int
+    imprimir=True
+Retorno:
+    En caso de no verificarse las validaciones devolver N/A
+'''
     separador = ''
     if (len(patron) >= 1 and len(patron) <= 2) and (largo >= 1 and largo <= 235):
         
@@ -432,12 +443,18 @@ def generar_separador(patron:str, largo:int, imprimir=True):
         separador = 'N/A'
     return separador
 
-# generar_separador('*',7)
-
 
 # 5.2
 
 def generar_encabezado(titulo: str):
+    '''
+Brief:
+    Genera un encabezado. Primero realiza una linea de separados, abajo coloca el titulo del encabezado en mayusculas, y luego otro separador
+Parametros:
+    titulo: str
+Retorno:
+    deberá devolver un string que contenga el título envuelto entre dos separadores
+'''
     titulo_mayus = titulo.upper()
     separador = generar_separador('*', 50, False)
 
@@ -445,24 +462,26 @@ def generar_encabezado(titulo: str):
 
     return respuesta
 
-# print(generar_encabezado('Tituli'))
 
 # 5.3 
-
 def imprimir_ficha_heroe(heroe: dict, indice:int):
+    '''
+Brief:
+    Recibe una lista y un indice. En base a eso genera la ficha de un heroe.
+    Inicia con el encabezado de un titulo, luego sus datos, y continua con otro encabezado.
+Parametros:
+    heroe: diccionario
+Retorno:
+    No tiene retorno
+'''
     nombre = heroe['nombre']
     identidad = heroe['identidad']
     consultora = heroe['empresa']
-    # codigo heroe
     altura = heroe['altura']
     peso = heroe['peso']
     fuerza = heroe['fuerza']
     color_ojos = heroe['color_ojos']
     color_pelo = heroe['color_pelo']
-
-    # encabezado_principal = generar_encabezado('Principal')
-    # encabezado_fisico = generar_encabezado('Fisico')
-    # encabezado_señas = generar_encabezado('señas particulares')
 
     respuesta = f'''{generar_encabezado('Principal')}
 NOMBRE DEL HÉROE: {obtener_dato_formato(nombre)} ({extraer_iniciales(nombre)})
@@ -480,16 +499,21 @@ COLOR DE OJOS: {color_ojos}
 COLOR DE PELO: {color_pelo}
 
 '''
-    
 
     print(respuesta)
 
-# imprimir_ficha_heroe(lista_personajes[0])
-
 
 # 5.5
-
 def stark_navegar_fichas(lista_heroes:list):
+    '''
+Brief:
+    Crea un menú para recorrer las fichas de los heroes. 
+    Siempre al ejectarse inicia con el primer heroe de la lista y a partir de allí muestra las opciones del menu
+Parametros:
+    lista_heroes:list
+Retorno:
+    No tiene.
+'''
     menu_fichas = True
     indice_inicial = 0
     indice = 0 
