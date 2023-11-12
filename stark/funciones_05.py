@@ -196,19 +196,23 @@ Retorno:
 def leer_json(path: str, nombre_lista:str)->list:
     '''
 Brief:
+    Lee archivo json según la informacion recibida por parametro
 Parametros:
+    path: str,
+    nombre_lista:str
 Retorno:
+    Retrona la lista si se leyó correctamente, sino False
 '''
     # para hacerlo con expresiones regulares + info en 1:38:00 video clase 8
     retorno = None
     try:
         with open(path,'r') as archivo:
             dict_json = json.load(archivo)
-            retorno = dict_json['heroes']
+            retorno = dict_json[nombre_lista]
             
     except FileNotFoundError:
         retorno = False
     finally:
         return retorno
 
-# print(leer_json('./stark/data_stark.json', 'heroes'))
+print(leer_json('./stark/data_stark.json', 'heroes'))
