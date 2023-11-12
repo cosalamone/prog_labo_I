@@ -351,16 +351,16 @@ Retorno:
 '''
     tipo_dato = tipo_dato.lower() 
     respuesta = True
-
+    heroe: dict
     if clave in heroe:
         if tipo_dato == 'string':
-            sanitizar_string(heroe[clave])
+            heroe[clave]= sanitizar_string(heroe[clave])
 
         elif tipo_dato == 'flotante':
-            sanitizar_flotante(heroe[clave])
+            heroe[clave] = sanitizar_flotante(heroe[clave])
 
         elif tipo_dato == 'entero':
-            sanitizar_entero(heroe[clave])
+            heroe[clave]= sanitizar_entero(heroe[clave])
 
         else: 
             print('Tipo de dato no reconocido')
@@ -368,7 +368,7 @@ Retorno:
     else:
         print('La clave especificada no existe en el héroe')
         respuesta = False
-
+    print(heroe)
     return respuesta
 
 
@@ -384,6 +384,7 @@ Retorno:
 '''
     if len(lista_heroes) > 0:
         for heroe in lista_heroes:
+            
             sanitizar_dato(heroe, 'altura', 'flotante')
             sanitizar_dato(heroe, 'peso', 'flotante')
             sanitizar_dato(heroe, 'color_ojos', 'string')
@@ -394,6 +395,32 @@ Retorno:
     else:
         print('Error: Lista de héroes vacía')
 
+prueba =   [{
+    "nombre": "Rocket Raccoon",
+    "identidad": "Rocket Raccoon!",
+    "empresa": "Marvel Comics",
+    "altura": "122.77",
+    "peso": "25.73",
+    "genero": "NB",
+    "color_ojos": "Brown",
+    "color_pelo": "Brown",
+    "fuerza": "5",
+    "inteligencia": "average"
+},
+{
+    "nombre": "Howard the Duck",
+    "identidad": "Howard (Last name unrevealed)",
+    "empresa": "Marvel Comics",
+    "altura": "79.349999999999994",
+    "peso": "18.449999999999999",
+    "genero": "M",
+    "color_ojos": "Brown",
+    "color_pelo": "Yellow",
+    "fuerza": "2",
+    "inteligencia": ""
+}]
+
+stark_normalizar_datos(prueba)
 
 # 4.1
 def stark_imprimir_indice_nombre(lista_heroes:list):
