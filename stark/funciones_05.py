@@ -312,7 +312,7 @@ Retorno:
     
 # print(ordenar(lista_personajes, 'asc'))
 
-def  obligatorio_normalizar(lista_heroes): 
+def  obligatorio_normalizar(lista_heroes, sanitizado:bool = False): 
     '''
 Brief:
     Solicita que el usuario normalice los datos ingresando opcion 1
@@ -321,12 +321,31 @@ Parametros:
 Retorno:
     Retorna True en caso que se hayan normalizado
     '''
-    
-    opcion = input('Para ingresar al menú es necesario normalizar los datos, por favor ingrese 1:  ')
-    while opcion != '1':
-        opcion = input('La opcion a ingresar debe ser 1  ')
-    stark_normalizar_datos(lista_heroes)
-    return True
+    if sanitizado == True:
+        print('La lista ya fue santitizada')
+    else:
+
+        opcion = input('Para ingresar al menú es necesario normalizar los datos, por favor ingrese 1:  ')
+        while opcion != '1':
+            opcion = input('La opcion a ingresar debe ser 1  ')
+        stark_normalizar_datos(lista_heroes)
+        return True
+
+def stark_normalizar(normalizado):
+    '''
+Brief:
+    Confirma si los datos fueron o no normalizados
+Parametros:
+    - Lista(list): Lista de diccionarios de los heroes
+    - Key(str): es la característica que se desea buscar
+Retorno:
+    Imrpime mensaje según si los datos fueron o no normalizados
+    '''
+    if normalizado == True:
+        print('Datos Normalizados')
+    else:
+        print('Hubo un error al normalizar los datos. Verifique que la lista no este vacía o que los datos ya no se hayan normalizado anteriormente')
+
 
 
 def menu_generar_e_imprimir_csv(lista_heroes):
@@ -357,6 +376,7 @@ def menu_listar_heroes_orden_fuerza(lista_heroes):
     print(ordenar(lista_heroes, 'fuerza'))
 
 # menu_listar_heroes_orden_fuerza(lista_personajes)
+
 # 3
 def menu_stark_cinco(lista_heroes:list):
     '''
@@ -394,8 +414,8 @@ Retorno:
                 opcion_seleccionada = int(input(opciones_repregunta_menu))
             
             match opcion_seleccionada:
-                # case 1:
-                #     obligatorio_normalizar(lista_heroes)
+                case 1:
+                    obligatorio_normalizar(lista_heroes, True)
                 case 2:
                     menu_generar_e_imprimir_csv(lista_heroes)
 
