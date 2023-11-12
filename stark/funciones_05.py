@@ -41,11 +41,11 @@ Parametros:
 Retorno:
     retorna True si no hubo errores, caso contrario False.
 '''
-    retorno = None
+    retorno = False
     try: 
         with open(path, 'w+', encoding='utf-8') as archivo:
-            retorno = archivo.write(f'{contenido}')
-            if retorno:
+            guardado = archivo.write(f'{contenido}')
+            if guardado:
                 retorno = True
                 print(f'Se creó el archivo: {path}')
     
@@ -107,15 +107,18 @@ Retorno:
 
                 contenido += f'{nombre},{identidad},{empresa},{altura},{peso},{genero},{color_ojos},{color_pelo},{fuerza},{inteligencia}\n'
 
-            guardar_archivo(path, contenido)
+            respuesta = guardar_archivo(path, contenido)
         else:
-            return False
+            respuesta =  False
     except FileNotFoundError:
         errorMessage = f'No such file or directory: {path}'
         print(errorMessage)
     except TypeError:
         errorMessage = f'TypeError: {path}'
         print(errorMessage)
+    
+    finally:
+        return respuesta
 
 # generar_csv('./stark/data_stark_prueba.csv',lista_personajes)
 
@@ -177,7 +180,7 @@ Retorno:
     No tiene retorno 
 '''
     if len(lista_heroes) > 0:
-        stark_normalizar_datos(lista_heroes)
+        # stark_normalizar_datos(lista_heroes)
         data_stark = {nombre_lista: lista_heroes}
 
         data_json = json.dumps(data_stark, indent=4)
@@ -221,43 +224,195 @@ Retorno:
 
 # 2.1 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza) de manera ascendente
 
-def ordenar_ascendente(lista_heroe:list):
-    lista_alturas = []
-    for heroe in lista_heroe:
-        lista_alturas.append(heroe['altura'])
+def ordenar_ascendente(lista_heroes:list, key: str):
+    '''
+Brief:
+    Ordena la lista por alguna de las caracteristicas numericas del heroe de forma ascendente
+Parametros:
+    lista_heroe:list, 
+    key: str
+Retorno:
+    La lista ordenada acendentemente
+'''
 
-    lista_alturas.sort()
-    return lista_alturas
+    if key == 'altura' or key == 'peso':
+        lista_heroes_ordenada = sorted(lista_heroes, key=lambda heroe: float(heroe[key]))
+        respuesta = lista_heroes_ordenada
+    elif  key == 'fuerza': 
+        lista_heroes_ordenada = sorted(lista_heroes, key=lambda heroe: int(heroe[key]))
+        respuesta = lista_heroes_ordenada
 
-# print(ordenar_ascendente(lista_personajes))
+    else:
+        respuesta = 'La caracteristica indicada no es numerica'
+
+    return respuesta
+
+
+# print(ordenar_ascendente(lista_personajes, 'fuerza'))
 
 
 # 2.2 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza) de manera descendente.
 
-def ordenar_descendente(lista_heroe:list):
-    lista_alturas = []
-    for heroe in lista_heroe:
-        lista_alturas.append(heroe['peso'])
+def ordenar_descendente(lista_heroes:list, key: str):
+    '''
+Brief:
+    Ordena la lista por alguna de las caracteristicas numericas del heroe de forma descendente
+Parametros:
+    lista_heroe:list, 
+    key: str
+Retorno:
 
-    lista_alturas.sort(reverse=True)
-    return lista_alturas
+'''
+    if key == 'altura' or key == 'peso':
+        lista_heroes_ordenada = sorted(lista_heroes, key=lambda heroe: float(heroe[key]), reverse= True)
+        respuesta = lista_heroes_ordenada
+    elif  key == 'fuerza': 
+        lista_heroes_ordenada = sorted(lista_heroes, key=lambda heroe: int(heroe[key]), reverse= True)
+        respuesta = lista_heroes_ordenada
+
+    else:
+        respuesta = 'La caracteristica indicada no es numerica'
+
+    return respuesta
 
 # print(ordenar_descendente(lista_personajes))
 
 
 # 2.3 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza). Preguntar al usuario si lo quiere ordenar de manera ascendente (‘asc’) o descendente (‘desc’) (reutilizar funciones anteriores dependiendo del caso)
 
-def ordenar(lista_heroes: list, modo_ordenamiento):
-    stark_normalizar_datos(lista_heroes)
-    modo_ordenamiento = input('Por favor, indicar de que forma desea ordenar la lista: asc o desc:')
+def ordenar(lista_heroes: list,key:str):
+    '''
+Brief:
+
+Parametros:
+    heroe: diccionario
+Retorno:
+
+'''
+    # stark_normalizar_datos(lista_heroes)
+    modo_ordenamiento = input('Por favor, indicar de que forma desea ordenar la lista según una característica numerica: asc o desc \n')
+    
+    while modo_ordenamiento.lower() != 'asc' and modo_ordenamiento.lower != 'desc':
+        modo_ordenamiento = input('Las opciones son: asc o desc')
+
+#     key = input(''' Las opciones a ordenar son:
+# - Altura
+# - Peso
+# - Fuerza
+#     ¿Cuál desea ordenar?
+# ''')
+#     while key.lower() != 'peso' and key.lower() != 'altura' and key.lower() != 'fuerza':
+#         key = input(' Por favor, ingrese una de las opciones indicadas previamente')
+
     if modo_ordenamiento == 'desc':
-        lista_ordenada = ordenar_descendente(lista_heroes)
+        lista_ordenada = ordenar_descendente(lista_heroes, key)
     elif modo_ordenamiento == 'asc':
-        lista_ordenada =  ordenar_ascendente(lista_heroes)
+        lista_ordenada =  ordenar_ascendente(lista_heroes, key)
     return lista_ordenada
     
-print(ordenar(lista_personajes, 'asc'))
+# print(ordenar(lista_personajes, 'asc'))
+
+def  obligatorio_normalizar(lista_heroes): 
+    '''
+Brief:
+    Solicita que el usuario normalice los datos ingresando opcion 1
+Parametros:
+    - Lista_heroes(list): Lista de diccionarios de los heroes
+Retorno:
+    Retorna True en caso que se hayan normalizado
+    '''
+    
+    opcion = input('Para ingresar al menú es necesario normalizar los datos, por favor ingrese 1:  ')
+    while opcion != '1':
+        opcion = input('La opcion a ingresar debe ser 1  ')
+    stark_normalizar_datos(lista_heroes)
+    return True
 
 
+def menu_generar_e_imprimir_csv(lista_heroes):
+    generar_csv('./stark/nuevo_archivo.csv', lista_heroes)
+    lista_generada = leer_csv('./stark/nuevo_archivo.csv')
+    print(lista_generada) 
 
+# menu_generar_csv(lista_personajes)
+
+def menu_listar_heroes_orden_altura_asc(lista_heroes):
+    
+    return ordenar_ascendente(lista_heroes,'altura')
+
+# print(menu_listar_heroes_orden_altura_asc(lista_personajes))
+
+def menu_generar_e_imprimir_json(lista_heroes):
+    generar_json('./stark/nuevo_archivo.json', lista_heroes, 'heroes')
+    lista_generada = leer_json('./stark/nuevo_archivo.json', 'heroes')
+    print(lista_generada)
+
+# print(menu_generar_json(lista_personajes))
+
+def menu_listar_heroes_orden_peso_desc(lista_heroes):
+    return ordenar_descendente(lista_heroes,'peso')
+# print(menu_listar_heroes_orden__peso_desc(lista_personajes))
+
+def menu_listar_heroes_orden_fuerza(lista_heroes):
+    print(ordenar(lista_heroes, 'fuerza'))
+
+# menu_listar_heroes_orden_fuerza(lista_personajes)
 # 3
+def menu_stark_cinco(lista_heroes:list):
+    '''
+Brief:
+
+Parametros:
+    heroe: diccionario
+Retorno:
+
+'''
+    menu_running = True
+
+    sanitizado = obligatorio_normalizar(lista_heroes)
+
+    opciones_menu = '''Elija una de las siguientes opciones:
+1-Normalizar datos 
+2-Generar CSV 
+3-Listar heroes del archivo CSV ordenados por altura ASC 
+4-Generar JSON
+5-Listar heroes del archivo JSON ordenados por peso DESC 
+6-Ordenar Lista por fuerza 
+7-Salir
+''' 
+    opciones_repregunta_menu = 'Las opciones validas son del 1 al 7'
+
+
+    while  menu_running:
+
+        if sanitizado == True:
+
+            opcion_seleccionada = int(input(opciones_menu))
+
+            
+            while opcion_seleccionada < 2 and  opcion_seleccionada > 7:
+                opcion_seleccionada = int(input(opciones_repregunta_menu))
+            
+            match opcion_seleccionada:
+                # case 1:
+                #     obligatorio_normalizar(lista_heroes)
+                case 2:
+                    menu_generar_e_imprimir_csv(lista_heroes)
+
+                case 3:
+                    print(menu_listar_heroes_orden_altura_asc(lista_heroes))
+
+                case 4:
+                    menu_generar_e_imprimir_json(lista_heroes)
+
+                case 5:
+                    print(menu_listar_heroes_orden_peso_desc(lista_heroes))
+
+                case 6:
+                    menu_listar_heroes_orden_fuerza(lista_heroes)
+                
+                case 7:
+                    menu_running = False
+
+
+menu_stark_cinco(lista_personajes)

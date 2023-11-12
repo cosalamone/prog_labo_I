@@ -482,7 +482,6 @@ Brief:
     Solicita que el usuario normalice los datos ingresando opcion 1
 Parametros:
     - Lista(list): Lista de diccionarios de los heroes
-    - Key(str): es la característica que se desea buscar
 Retorno:
     Retorna True en caso que se hayan normalizado
     '''
