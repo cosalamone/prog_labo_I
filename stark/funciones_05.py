@@ -215,4 +215,49 @@ Retorno:
     finally:
         return retorno
 
-print(leer_json('./stark/data_stark.json', 'heroes'))
+# print(leer_json('./stark/data_stark.json', 'heroes'))
+
+
+
+# 2.1 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza) de manera ascendente
+
+def ordenar_ascendente(lista_heroe:list):
+    lista_alturas = []
+    for heroe in lista_heroe:
+        lista_alturas.append(heroe['altura'])
+
+    lista_alturas.sort()
+    return lista_alturas
+
+# print(ordenar_ascendente(lista_personajes))
+
+
+# 2.2 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza) de manera descendente.
+
+def ordenar_descendente(lista_heroe:list):
+    lista_alturas = []
+    for heroe in lista_heroe:
+        lista_alturas.append(heroe['peso'])
+
+    lista_alturas.sort(reverse=True)
+    return lista_alturas
+
+# print(ordenar_descendente(lista_personajes))
+
+
+# 2.3 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza). Preguntar al usuario si lo quiere ordenar de manera ascendente (‘asc’) o descendente (‘desc’) (reutilizar funciones anteriores dependiendo del caso)
+
+def ordenar(lista_heroes: list, modo_ordenamiento):
+    stark_normalizar_datos(lista_heroes)
+    modo_ordenamiento = input('Por favor, indicar de que forma desea ordenar la lista: asc o desc:')
+    if modo_ordenamiento == 'desc':
+        lista_ordenada = ordenar_descendente(lista_heroes)
+    elif modo_ordenamiento == 'asc':
+        lista_ordenada =  ordenar_ascendente(lista_heroes)
+    return lista_ordenada
+    
+print(ordenar(lista_personajes, 'asc'))
+
+
+
+# 3
