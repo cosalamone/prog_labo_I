@@ -368,7 +368,6 @@ Retorno:
     else:
         print('La clave especificada no existe en el héroe')
         respuesta = False
-    print(heroe)
     return respuesta
 
 
@@ -384,7 +383,6 @@ Retorno:
 '''
     if len(lista_heroes) > 0:
         for heroe in lista_heroes:
-            
             sanitizar_dato(heroe, 'altura', 'flotante')
             sanitizar_dato(heroe, 'peso', 'flotante')
             sanitizar_dato(heroe, 'color_ojos', 'string')
