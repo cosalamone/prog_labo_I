@@ -418,7 +418,7 @@ prueba =   [{
     "inteligencia": ""
 }]
 
-stark_normalizar_datos(prueba)
+# stark_normalizar_datos(prueba)
 
 # 4.1
 def stark_imprimir_indice_nombre(lista_heroes:list):

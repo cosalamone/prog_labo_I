@@ -168,7 +168,7 @@ Retorno:
 
 
 # 1.5
-def generar_json(path: str, lista_heroes: list, nombre_lista: str): 
+def generar_json(path: str, lista_heroes: list, nombre_lista: str, sanitizado=False): 
     '''
 Brief:
     guarda en un diccionario de una sóla clave la lista de superhéroes,el nombre de clave debería ser la del tercer parámetro que sería el nombre de la lista.
@@ -180,7 +180,10 @@ Retorno:
     No tiene retorno 
 '''
     if len(lista_heroes) > 0:
-        # stark_normalizar_datos(lista_heroes)
+        if sanitizado == False: # sanitiza los datos sólo si se llama puntualmente a la fx, 
+                                # Si se llama desde el menú y se habia sanitizado, no vuelve a sanitizar
+            stark_normalizar_datos(lista_heroes)
+
         data_stark = {nombre_lista: lista_heroes}
 
         data_json = json.dumps(data_stark, indent=4)
@@ -234,6 +237,45 @@ Parametros:
 Retorno:
     La lista ordenada acendentemente
 '''
+    # retorno = None
+    # falg = True
+    # if (key != 'fuerza' and key != 'altura' and key != 'peso'):
+    #     retorno = False
+        
+    # else:
+    #     stark_normalizar_datos(lista_heroes)
+
+    #     for i in range(len(lista_heroes)-1):
+                
+    #             if(lista_heroes[i][key] > lista_heroes[i + 1][key]):
+    #                 aux = lista_heroes[i]
+    #                 lista_heroes[i] = lista_heroes[i + 1]
+    #                 lista_heroes[i + 1] = aux
+    #                 flag = True
+        
+    #     retorno = lista_heroes
+
+    # print(retorno) 
+
+
+    # # if key != 'fuerza' and key != 'altura' and key != 'peso':
+    # #     retorno = False
+    # # else:
+    # #     for heroe in lista_heroes:
+    # #         if type(heroe['fuerza']) != int or type(heroe['altura']) != float or type(heroe['peso']) != float:
+    # #             print('datos normalizados')
+    # #             retorno = False
+    # #             break
+    # #         else:
+    # #             while(flag):
+    # #                 flag = False
+    # #                 for i in range(len(lista_heroes)-1):
+    # #                     if(lista_heroes[i][key] > lista_heroes[i + 1][key]):
+    # #                         aux = lista_heroes[i]
+    # #                         lista_heroes[i] = lista_heroes[i + 1]
+    # #                         lista_heroes[i + 1] = aux
+    # #                         flag = True
+
 
     if key == 'altura' or key == 'peso':
         lista_heroes_ordenada = sorted(lista_heroes, key=lambda heroe: float(heroe[key]))
@@ -248,7 +290,7 @@ Retorno:
     return respuesta
 
 
-# print(ordenar_ascendente(lista_personajes, 'fuerza'))
+ordenar_ascendente(lista_personajes, 'fuerza')
 
 
 # 2.2 Crear una función para ordenar héroes por alguna de las claves númericas (altura, peso y fuerza) de manera descendente.
@@ -362,7 +404,7 @@ def menu_listar_heroes_orden_altura_asc(lista_heroes):
 # print(menu_listar_heroes_orden_altura_asc(lista_personajes))
 
 def menu_generar_e_imprimir_json(lista_heroes):
-    generar_json('./stark/nuevo_archivo.json', lista_heroes, 'heroes')
+    generar_json('./stark/nuevo_archivo.json', lista_heroes, 'heroes', True)
     lista_generada = leer_json('./stark/nuevo_archivo.json', 'heroes')
     print(lista_generada)
 
@@ -435,4 +477,4 @@ Retorno:
                     menu_running = False
 
 
-menu_stark_cinco(lista_personajes)
+# menu_stark_cinco(lista_personajes)
